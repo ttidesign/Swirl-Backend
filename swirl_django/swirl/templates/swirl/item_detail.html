@@ -1,0 +1,10 @@
+{% extends 'swirl/base.html' %} {% block content %}
+
+<h2>{{ item.title }} <a href="">(edit)</a></h2>
+<h4>{{ item.description}}</h4>
+
+<img src="{{ item.img_url }}" alt="" class="item-photo" />
+
+
+
+{% endblock %}
