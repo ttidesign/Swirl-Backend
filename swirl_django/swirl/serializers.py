@@ -17,10 +17,10 @@ class OrderItemSerializer(serializers.HyperlinkedModelSerializer):
        fields=('id','item','quantity','ordered',)
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
-    items = serializers.HyperlinkedRelatedField(
-        view_name='order_detail',
-        read_only=True
-    )
+    # items = serializers.HyperlinkedRelatedField(
+    #     view_name='item_detail',
+    #     read_only=True
+    # )
     class Meta:
        model = Order
-       fields=('id','items','start_date','ordered_date','ordered',)
+       fields=('id','start_date','ordered_date','ordered',)
