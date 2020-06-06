@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Item, OrderItem, Order
 from django.utils import timezone
 from rest_framework import generics
-from .serializers import ItemSerializer, OrderItemSerializer 
+from .serializers import ItemSerializer, OrderItemSerializer, OrderSerializer
 # Create your views here.
 # def item_list(request):
 #     items = Item.objects.all()
@@ -20,9 +20,9 @@ class OrderItem(generics.ListCreateAPIView):
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
 
-# class Order(generics.ListCreateAPIView):
-#     queryset = Order.objects.all()
-#     serializer_class = OrderSerializer
+class Order(generics.ListCreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
 
 def item_detail(request,pk):
     item = Item.objects.get(id=pk)
