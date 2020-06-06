@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from .models import Item, OrderItem, Order
 from django.utils import timezone
 from rest_framework import generics
-from .serializers import ItemSerializer, OrderItemSerializer, OrderSerializer
+from .serializers import ItemSerializer, OrderItemSerializer, OrderSerializer, UserSerializer
+from django.contrib.auth.models import User
 # Create your views here.
 # def item_list(request):
 #     items = Item.objects.all()
@@ -12,6 +13,15 @@ from .serializers import ItemSerializer, OrderItemSerializer, OrderSerializer
 #     items = Item.objects.all().values('title', 'description', 'img_url')
 #     items_list = list(items)
 #     return JsonResponse(items_list, safe=False)
+class UserList(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
 class ItemList(generics.ListCreateAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
