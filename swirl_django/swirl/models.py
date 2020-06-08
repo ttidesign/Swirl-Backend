@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import User
 
 # Create your models here.
 Espresso_Choices = (
@@ -19,14 +20,20 @@ Shot_Choices = (
     ('quadruple','Quadruple'),
     ('none','None')
 )
+#Customer model
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    name=models.CharField(max_length=200, null=True)
+    email=models.CharField(max_length=200, null=True)
+    def __str__(self):
+        return self.name
 
-
-#drink model
+#drink/product model
 class Item(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     ingredients = models.CharField(max_length=300)
-    price = models.FloatField()
+    price = models.FloatField(default=5)
     espresso = models.CharField(choices=Espresso_Choices, default='Espresso Signature Blend', max_length=20)
     milk = models.CharField(choices=Milk_Choices,default='2%', max_length=20)
     shot = models.CharField(choices=Shot_Choices, default='double', max_length=20)
@@ -36,26 +43,25 @@ class Item(models.Model):
 
     def __str__(self):
         return self.title
+    
 
 
 #list of drinks add to order become list of order item
+class Order(models.Model):
+    customer= models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
+    start_date = models.DateTimeField(auto_now_add=True)
+    ordered_date = models.DateTimeField()
+    ordered = models.BooleanField(default=False)
+    def __str__(self):
+        return str(self.id)
+
 class OrderItem(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE, blank=True, null=True)
+    order= models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
+    quantity = models.IntegerField(default=0, null=True, blank=True)
     ordered = models.BooleanField(default=False)
     def __str__(self):
         return f"{self.quantity} of {self.item.title}"
 
 
 #order model associate with users
-class Order(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
-    items = models.ManyToManyField(OrderItem)
-    start_date = models.DateTimeField(auto_now_add=True)
-    ordered_date = models.DateTimeField()
-    ordered = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.user.username
