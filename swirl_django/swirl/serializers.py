@@ -1,31 +1,6 @@
 from rest_framework import serializers
 from .models import Item, Order, OrderItem
 from django.contrib.auth.models import User
-
-class ItemSerializer(serializers.HyperlinkedModelSerializer):
-
-   class Meta:
-       model = Item
-       fields=('id','title','description','ingredients', 'price','espresso','milk','shot','customize','img_url','preview_url',)
-
-class OrderItemSerializer(serializers.HyperlinkedModelSerializer):
-    item = serializers.HyperlinkedRelatedField(
-        view_name='item_detail',
-        read_only=True
-    )
-    class Meta:
-       model = OrderItem
-       fields=('id','item','quantity','ordered',)
-
-class OrderSerializer(serializers.HyperlinkedModelSerializer):
-    # items = serializers.HyperlinkedRelatedField(
-    #     view_name='item_detail',
-    #     read_only=True
-    # )
-    class Meta:
-       model = Order
-       fields=('id','start_date','ordered_date','ordered',)
-
 class UserSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
@@ -40,3 +15,30 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id','username','email','first_name',)
+
+class ItemSerializer(serializers.ModelSerializer):
+    espresso = serializers.SerializerMethodField()
+    milk = serializers.SerializerMethodField() 
+    shot = serializers.SerializerMethodField()  
+    class Meta:
+       model = Item
+       fields=('id','title','description','ingredients', 'price','espresso','milk','shot','customize','img_url','preview_url',)
+    def get_espresso(self,obj):
+        return obj.get_espresso_display()
+    def get_milk(self,obj):
+        return obj.get_milk_display()
+    def get_shot(self,obj):
+        return obj.get_shot_display()    
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    item = ItemSerializer()
+    class Meta:
+       model = OrderItem
+       fields=('id','item','quantity','ordered',)
+
+class OrderSerializer(serializers.ModelSerializer):
+    
+    
+    class Meta:
+       model = Order
+       fields=('id','customer','start_date','ordered_date','ordered',)

@@ -1,0 +1,12 @@
+{% extends 'swirl/base.html' %} {% block content %}
+<h2>Items in Cart<a href="">+</a></h2>
+<ul>
+    {% for item in items %}
+    <li>
+        <a href="{}">
+            {{ item.title }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
