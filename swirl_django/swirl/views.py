@@ -2,23 +2,32 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 from django.utils import timezone
 from django.contrib.auth.models import User
-from .models import Item, OrderItem, Order
+from .models import Item, OrderItem, Order, Customer
 from django.http import JsonResponse
 from rest_framework import generics 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST 
-from .serializers import ItemSerializer, OrderItemSerializer, OrderSerializer, UserSerializer
+from .serializers import ItemSerializer, OrderItemSerializer, OrderSerializer, UserSerializer, CustomerSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions
 import json
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 
 
+class CustomerList(generics.ListCreateAPIView):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
+
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class CustomerDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
@@ -117,14 +126,14 @@ def cart_detail(request):
     context={'items':items, 'order':order}
     return render(request, 'swirl/cart_detail.html',context)
 
-
+# @csrf_exempt
 def updateItem(request):
     data = json.loads(request.body)
     productId = data['productId']
     action = data['action']
     print('Action',action)
     print('productId',productId)
-    customer = request.user.username
+    customer = request.user.customer or request.user.id
     item = Item.objects.get(id=productId)
     order, created = Order.objects.get_or_create(customer=customer,ordered=False)
     orderItem,created = OrderItem.objects.get_or_create(order=order,item=item)
