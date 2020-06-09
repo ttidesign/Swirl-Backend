@@ -50,7 +50,7 @@ class Item(models.Model):
 class Order(models.Model):
     customer= models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
     start_date = models.DateTimeField(auto_now_add=True)
-    ordered_date = models.DateTimeField()
+    ordered_date = models.DateTimeField(auto_now_add=True)
     ordered = models.BooleanField(default=False)
     def __str__(self):
         return str(self.id)

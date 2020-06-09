@@ -1,0 +1,68 @@
+*, body{
+    background-color: rgb(35, 31, 28);
+    color: rgb(216, 188, 149);
+}
+.carousel-indicators {
+  background-color: transparent
+}
+.d-block.w-100{
+ max-width: 900;
+ margin: 0 auto;
+}
+.carousel-container {
+  margin:30px auto;
+}
+h1,h2 {
+    background-color: rgb(35, 31, 28);
+}
+.menu{
+  margin-top:50px ;
+  padding: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  border-top: 1px solid rgba(216, 188, 149,0.2);
+  font-size: 24px;
+  text-shadow:2px 2px 5px rgb(0,0,0);
+}
+.main-gallery {
+  align-items: center;
+  margin: 0px auto;
+  width:900px;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	grid-gap: 1rem;
+}
+.drink-title{
+  height:40px;
+  margin: 0 auto;
+  padding-top: 10px;
+  max-width: 130px;
+  font-size: 13px;
+  text-align: center;
+  text-shadow: 5px 5px 5px rgb(0,0,0);
+}
+.thumbnail-container{
+  margin: 10px auto;
+}
+img.thumbnail{
+  margin: 0 auto;
+  box-shadow: 5px 5px 8px rgb(0,0,0);
+  border: 2px solid rgb(216, 188, 149);
+  border-radius: 75px;
+  width:140px;
+  height: auto;
+  filter: saturate(0.6);
+}
+img.thumbnail:hover{
+  border: 3px solid rgb(216, 188, 149);
+  filter: saturate(1);
+}
+
+.add-to-cart{
+    text-align: center;
+    margin: 20px auto;
+    font-size: 14px;
+    width:100px;
+    font-weight: lighter;
+    box-shadow: 2px 2px 5px  rgb(0,0,0);
+}

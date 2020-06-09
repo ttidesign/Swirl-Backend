@@ -1,3 +1,4 @@
+
 let updateBtns = document.getElementsByClassName('update_cart');
 
 for (let i = 0; i < updateBtns.length; i++) {
