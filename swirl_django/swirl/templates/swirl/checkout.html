@@ -1,0 +1,31 @@
+{% extends 'swirl/base.html' %} {% block content %}
+<h2>Checkout<a href="">+</a></h2>
+<form type="submit">
+	<label for="fname">Firstname</label>
+	<input type="text" name="name" value="enter your name" />
+	<label for="email">Email</label>
+	<input type="text" name="name" value="enter your name" />
+	<label for="address">Street address</label>
+	<input type="text" name="name" value="Address" />
+	<label for="fname">City</label>
+	<input type="text" name="name" value="City" />
+	<label for="fname">State</label>
+	<input type="text" name="name" value="State" />
+	<label for="fname">Zipcode</label>
+	<input type="text" name="name" value="Zip" />
+	<button type="submit">Submit order</button>
+</form>
+<h3>Order Summary</h3>
+
+	{% for item in items %}
+
+		<p >
+			{{ item.item.title }}, Price: {{ item.item.price}}, Quantity: {{ item.quantity}}
+		</p>
+	
+	{% endfor %}
+
+<p>Items:{{order.get_cart_items}}</p>
+<p>Grand Total: ${{order.get_cart_total}}</p>
+
+{% endblock %}

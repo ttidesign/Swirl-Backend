@@ -6,6 +6,7 @@
 		<a href="{% url 'item_detail' pk=item.pk %}">
 			{{ item.title }}
 		</a>
+		<button data-product={{item.id}} data-action="add" class='update_cart'>Add to cart</button>
 	</li>
 	{% endfor %}
 </ul>

@@ -1,12 +1,15 @@
 {% extends 'swirl/base.html' %} {% block content %}
 <h2>Items in Cart<a href="">+</a></h2>
+<h3> Total Item:{{order.get_cart_items}} </h3>
+<h3>Grand total: ${{order.get_cart_total}}</h3>
 <ul>
     {% for item in items %}
     <li>
-        <a href="{}">
-            {{ item.title }}
-        </a>
+            Item:{{item}},
+            Price: ${{item.item.price}},
+            Quantity: {{item.quantity}}
     </li>
+    <p>Total cost: ${{item.get_total}}</p>
     {% endfor %}
 </ul>
 {% endblock %}

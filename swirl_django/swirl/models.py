@@ -54,6 +54,15 @@ class Order(models.Model):
     ordered = models.BooleanField(default=False)
     def __str__(self):
         return str(self.id)
+    @property
+    def get_cart_total(self):
+        orderitems = self.orderitem_set.all()
+        total = sum([item.get_total for item in orderitems])
+        return total
+    def get_cart_items(self):
+        orderitems = self.orderitem_set.all()
+        total = sum([item.quantity for item in orderitems])
+        return total
 
 class OrderItem(models.Model):
     order= models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
@@ -62,6 +71,10 @@ class OrderItem(models.Model):
     ordered = models.BooleanField(default=False)
     def __str__(self):
         return f"{self.quantity} of {self.item.title}"
+    @property
+    def get_total(self):
+        total = self.item.price * self.quantity
+        return total
 
 
 #order model associate with users
