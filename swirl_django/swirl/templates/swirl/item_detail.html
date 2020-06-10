@@ -1,8 +1,21 @@
-{% extends 'swirl/base.html' %} {% block content %}
-
-<h2>{{ item.title }} <a href="">(edit)</a></h2>
-<h4>{{ item.description}}</h4>
-
-<img src="{{ item.img_url }}" alt="" class="item-photo" />
-<button >add to cart</button>
+{% extends 'swirl/base.html' %} 
+{% block content %}
+<div class='detail-view'>
+    <div>
+        <img class='detail-image' src="{{ item.img_url }}" alt='specific espresso drink'></img>
+    </div>
+    <div class='detail-info'>
+        <h4>{{item.title}}</h4>
+        <p>{{item.description}}</p>
+        <h5>Ingredients:</h5>
+        <p>{{item.ingredients}}</p>
+        <li>Milk: {item.milk}</li>
+        <li>Espresso Bean: {{item.espresso}}</li>
+        <li>Espresso Shot: {{item.shot}}</li>
+        <li>Custom: {{item.customize}}</li>
+        <h5>Price:</h5>
+        <p> ${{item.price}}</p>
+        <button> <a data-product={{item.id}} data-action="add" class='update_cart'>Add to Cart</a></button>
+    </div>
+</div>
 {% endblock %}

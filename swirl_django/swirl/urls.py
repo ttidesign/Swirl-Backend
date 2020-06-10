@@ -15,8 +15,8 @@ urlpatterns = [
     #html render view
     #path('add-to-cart/<int:pk>', add_to_cart, name='add-to-cart'),
     path('products/', views.store, name='store'),
+    path('products/<int:pk>', views.item_detail, name='item_detail'),
     path('cart/', views.cart_detail, name='cart_detail'),
     path('checkout/', views.checkout, name='checkout'),
-    path('item_detail/<int:pk>', views.item_detail, name='item_detail'),
     path('update_item/', views.updateItem, name='update_item'),
 ]

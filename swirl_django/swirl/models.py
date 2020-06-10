@@ -70,7 +70,7 @@ class OrderItem(models.Model):
     quantity = models.IntegerField(default=0, null=True, blank=True)
     ordered = models.BooleanField(default=False)
     def __str__(self):
-        return f"{self.quantity} of {self.item.title}"
+        return self.item.title
     @property
     def get_total(self):
         total = self.item.price * self.quantity

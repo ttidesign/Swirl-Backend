@@ -1,15 +1,18 @@
-{% extends 'swirl/base.html' %} {% block content %}
-<h2>Items in Cart<a href="">+</a></h2>
-<h3> Total Item:{{order.get_cart_items}} </h3>
-<h3>Grand total: ${{order.get_cart_total}}</h3>
-<ul>
+{% extends 'swirl/base.html' %} 
+{% block content %}
+<h3>Items in Cart</h3>
     {% for item in items %}
-    <li>
-            Item:{{item}},
-            Price: ${{item.item.price}},
-            Quantity: {{item.quantity}}
-    </li>
-    <p>Total cost: ${{item.get_total}}</p>
+        <div  class='cart-items'> 
+            <section> <img class='thumbnail-checkout' src={{item.item.preview_url}}> </section>
+            <section> {{item}} </section>
+            <section> ${{item.item.price|floatformat:2}} </section>
+            <section> Quantity: <a data-product={{item.item.id}} data-action="remove" class='update_cart'> - </a>{{item.quantity}} <a data-product={{item.item.id}} data-action="add" class='update_cart'> + </a> </section>
+            <section>Cost: ${{item.get_total|floatformat:2}} </section>
+        </div>
+
     {% endfor %}
-</ul>
+<h2>Total Item: {{order.get_cart_items}} </h2>
+<h2>Grand total: ${{order.get_cart_total|floatformat:2}}</h2>
+ <a href='/products/'> <button> Continue Shopping </button> </a>
+<a href='/checkout/'> <button> Checkout </button> </a>
 {% endblock %}
