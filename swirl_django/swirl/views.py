@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 from django.utils import timezone
 from django.contrib.auth.models import User
-from .models import Item, OrderItem, Order, Customer
+from .models import Item, OrderItem, Order, Customer, ShippingAddress
 from django.http import JsonResponse
 from rest_framework import generics 
 from rest_framework.views import APIView
@@ -18,29 +18,29 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 
-# class CustomerList(generics.ListCreateAPIView):
-#     queryset = Customer.objects.all()
-#     serializer_class = CustomerSerializer
+class CustomerList(generics.ListCreateAPIView):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
 
-# class UserList(generics.ListCreateAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
+class UserList(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
-# class CustomerDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Customer.objects.all()
-#     serializer_class = CustomerSerializer
+class CustomerDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
 
-# class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
-# class ItemList(generics.ListCreateAPIView):
-#     queryset = Item.objects.all()
-#     serializer_class = ItemSerializer
+class ItemList(generics.ListCreateAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
 
-# class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Item.objects.all()
-#     serializer_class = ItemSerializer
+class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
 
 # class OrderItem(generics.ListCreateAPIView):
 #     queryset = OrderItem.objects.all()
@@ -161,16 +161,16 @@ def updateItem(request):
 def processOrdder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
-    
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer,ordered=False)
-        total = (data['form']['total'])
+        total = float(data['form']['total'])
         order.transaction_id = transaction_id
 
-        if total == (order.get_cart_total):
+        if total == float(order.get_cart_total):
+            print(total)
             order.ordered = True
-        order.save()
+            order.save()
         ShippingAddress.objects.create(
             customer=customer,
             order=order,

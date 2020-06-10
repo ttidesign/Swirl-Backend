@@ -26,7 +26,7 @@
 				</div class='name-field'>
 				<div class='name-field'> 
 					<label for="fname">Zipcode</label>
-					<input type="text" name="zip" value="Zipcode" />
+					<input type="text" name="zipcode" value="Zipcode" />
 				</div>
 				<div class='name-field'> 
 					<button id='make-payment'>Submit order</button>
@@ -53,7 +53,7 @@
 		</div>
 <script type='text/javascript'>
 let form = document.getElementById('form')
-let total='{{order.get_cart_total}'
+let total='{{order.get_cart_total}}'
 document.getElementById('make-payment').addEventListener('click',function(e){
 	submitFormData()
 })
@@ -67,7 +67,7 @@ function submitFormData(){
 		'address': form.address.value,
 		'city': form.city.value,
 		'state': form.state.value,
-		'zip': form.zip.value,
+		'zipcode': form.zipcode.value,
 	}
 	let url = '/process_order/'
 	fetch(url,{
