@@ -45,8 +45,7 @@ class Item(models.Model):
         return self.title
     
 
-
-#list of drinks add to order become list of order item
+#order model
 class Order(models.Model):
     customer= models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
     start_date = models.DateTimeField(auto_now_add=True)
@@ -54,6 +53,9 @@ class Order(models.Model):
     ordered = models.BooleanField(default=False)
     def __str__(self):
         return str(self.id)
+
+    # @property
+
     @property
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()
@@ -64,6 +66,7 @@ class Order(models.Model):
         total = sum([item.quantity for item in orderitems])
         return total
 
+#list of drinks add to order become list of order item
 class OrderItem(models.Model):
     order= models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
@@ -75,6 +78,3 @@ class OrderItem(models.Model):
     def get_total(self):
         total = self.item.price * self.quantity
         return total
-
-
-#order model associate with users

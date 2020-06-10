@@ -12,6 +12,7 @@ from .serializers import ItemSerializer, OrderItemSerializer, OrderSerializer, U
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions
 import json
+import datetime
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
@@ -143,6 +144,7 @@ def updateItem(request):
     action = data['action']
     print('Action',action)
     print('productId',productId)
+    print(data)
     customer = request.user.customer or request.user.id
     item = Item.objects.get(id=productId)
     order, created = Order.objects.get_or_create(customer=customer,ordered=False)
@@ -155,7 +157,32 @@ def updateItem(request):
     if orderItem.quantity <=0:
         orderItem.delete()
     return JsonResponse('item was add',safe=False)
+
+def processOrdder(request):
+    transaction_id = datetime.datetime.now().timestamp()
+    data = json.loads(request.body)
     
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer,ordered=False)
+        total = (data['form']['total'])
+        order.transaction_id = transaction_id
+
+        if total == (order.get_cart_total):
+            order.ordered = True
+        order.save()
+        ShippingAddress.objects.create(
+            customer=customer,
+            order=order,
+            address=data['shipping']['address'],
+            city=data['shipping']['city'],
+            state=data['shipping']['state'],
+            zipcode=data['shipping']['zipcode'],
+        )
+    else:
+        print('User is not logged in')
+    return JsonResponse('Payment complete!', safe=False)
+
 # @permission_classes((permissions.AllowAny,))
 # class AddToCartView(APIView):
 #     def updateItem(request):
