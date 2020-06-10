@@ -4,8 +4,8 @@ from .views import  store, cart_detail, checkout, updateItem
 from rest_framework.routers import DefaultRouter
 urlpatterns = [
     # path('', views.ItemList.as_view(), name='item_list'),
-    # # path('mycart/', views.OrderItem.as_view(), name='order_item'),
-    # # path('order-history/', views.Order.as_view(), name='order_history'),
+    # path('mycart/', views.OrderItem.as_view(), name='order_item'),
+    # path('order-history/', views.Order.as_view(), name='order_history'),
     # path('drinks/<int:pk>', views.ItemDetail.as_view(), name='item_detail'),
     # path('customers/', views.CustomerList.as_view(), name='customer_list'),
     # path('customers/<int:pk', views.CustomerDetail.as_view(), name='customer_detail'),
@@ -19,4 +19,5 @@ urlpatterns = [
     path('cart/', views.cart_detail, name='cart_detail'),
     path('checkout/', views.checkout, name='checkout'),
     path('update_item/', views.updateItem, name='update_item'),
+    path('process_order/', views.processOrdder, name='process_order'),
 ]
