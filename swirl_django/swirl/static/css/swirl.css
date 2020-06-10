@@ -1,68 +1,153 @@
-*, body{
-    background-color: rgb(35, 31, 28);
+*,body{
+	background-color: rgb(35, 31, 28);
     color: rgb(216, 188, 149);
+    font-family: 'Lato';
 }
 .carousel-indicators {
-  background-color: transparent
+	background-color: transparent;
 }
-.d-block.w-100{
- max-width: 900;
- margin: 0 auto;
+.d-block.w-100 {
+	max-width: 900;
+	margin: 0 auto;
 }
 .carousel-container {
-  margin:30px auto;
+	margin: 30px auto;
 }
-h1,h2 {
-    background-color: rgb(35, 31, 28);
+h1,
+h2 {
+	background-color: rgb(35, 31, 28);
 }
-.menu{
-  margin-top:50px ;
-  padding: 20px;
-  padding-bottom: 20px;
+h3{
   text-align: center;
-  border-top: 1px solid rgba(216, 188, 149,0.2);
   font-size: 24px;
   text-shadow:2px 2px 5px rgb(0,0,0);
 }
+
+.menu {
+	margin-top: 50px;
+	padding: 20px;
+	padding-bottom: 20px;
+	border-top: 1px solid rgba(216, 188, 149, 0.2);
+}
 .main-gallery {
-  align-items: center;
-  margin: 0px auto;
-  width:900px;
+	align-items: center;
+	margin: 0px auto;
+	width: 900px;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 	grid-gap: 1rem;
 }
-.drink-title{
-  height:40px;
-  margin: 0 auto;
-  padding-top: 10px;
-  max-width: 130px;
-  font-size: 13px;
-  text-align: center;
-  text-shadow: 5px 5px 5px rgb(0,0,0);
+.drink-title {
+	height: 40px;
+	margin: 0 auto;
+	padding-top: 10px;
+	max-width: 130px;
+	font-size: 13px;
+	text-align: center;
+    text-shadow: 5px 5px 5px rgb(0, 0, 0);
+    
 }
-.thumbnail-container{
-  margin: 10px auto;
+.thumbnail-container {
+	margin: 10px auto;
 }
-img.thumbnail{
-  margin: 0 auto;
-  box-shadow: 5px 5px 8px rgb(0,0,0);
-  border: 2px solid rgb(216, 188, 149);
-  border-radius: 75px;
-  width:140px;
-  height: auto;
-  filter: saturate(0.6);
-}
-img.thumbnail:hover{
-  border: 3px solid rgb(216, 188, 149);
-  filter: saturate(1);
+img.thumbnail {
+	margin: 0 auto;
+	box-shadow: 5px 5px 8px rgb(0, 0, 0);
+	border: 2px solid rgb(216, 188, 149);
+	border-radius: 75px;
+	width: 140px;
+	height: auto;
+	filter: saturate(0.6);
 }
 
-.add-to-cart{
-    text-align: center;
+img.thumbnail:hover {
+	border: 3px solid rgb(216, 188, 149);
+	filter: saturate(1);
+}
+.add-to-cart {
+	text-align: center;
+	margin: 20px auto;
+	font-size: 14px;
+	width: 100px;
+	font-weight: lighter;
+	box-shadow: 2px 2px 5px rgb(0, 0, 0);
+}
+.detail-view{
+  margin:50px auto;
+  display: flex;
+  justify-items: center;
+  width: 900px;
+}
+.detail-info{
+  padding: 10px 10px;
+  margin-left:20px;
+  font-family: 'Gotu';
+}
+h4,h5{
+  padding-top:20px;
+  font-family: 'Gotu';
+  border-bottom: 1px solid rgba(216, 188, 149,0.4);
+  text-shadow:3px 3px 3px black;
+}
+img.detail-image{
+  width: 450px;
+  height: auto;
+  box-shadow: 5px 5px 10px black;
+}
+.thumbnail-checkout {
+	width: 75px;
+	height: auto;
+	border-radius: 50%;
+	border: 1px solid rgba(216, 188, 149, 1);
+	margin-left: 20px;
+}
+section {
+	width: 300px;
+}
+.cart-items {
+	padding-bottom: 20px;
+	border-bottom: 1px solid rgba(216, 188, 149, 0.3);
+	margin: 20px auto;
+	display: flex;
+	justify-content: space-evenly;
+	text-align: left;
+	align-items: center;
+	align-content: center;
+}
+.form-container{
+    max-width: 1000px;
+    display:flex;
+    justify-content: space-between;
     margin: 20px auto;
+ 
+    
+}
+input,label,form,.name-field{
+    padding:10px;
+}
+input{
+    color:black;
+    width:300px;
+    height:40px;
+    background-color: white;
+    outline: none;
+}
+.name-field{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.checkout-form,.order-summary{
+    width:450px;
+}
+.order-summary{
+    padding:0 10px;
     font-size: 14px;
-    width:100px;
-    font-weight: lighter;
-    box-shadow: 2px 2px 5px  rgb(0,0,0);
+    border: 1px solid rgba(216, 188, 149,0.3)
+}
+button{
+    width:125px;
+    font-size: 16px;
+    height: 35px;
+    box-shadow:2px 2px 4px rgb(0, 0, 0);
 }

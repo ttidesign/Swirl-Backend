@@ -17,29 +17,29 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 
-class CustomerList(generics.ListCreateAPIView):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
+# class CustomerList(generics.ListCreateAPIView):
+#     queryset = Customer.objects.all()
+#     serializer_class = CustomerSerializer
 
-class UserList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+# class UserList(generics.ListCreateAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
 
-class CustomerDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
+# class CustomerDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Customer.objects.all()
+#     serializer_class = CustomerSerializer
 
-class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+# class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
 
-class ItemList(generics.ListCreateAPIView):
-    queryset = Item.objects.all()
-    serializer_class = ItemSerializer
+# class ItemList(generics.ListCreateAPIView):
+#     queryset = Item.objects.all()
+#     serializer_class = ItemSerializer
 
-class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Item.objects.all()
-    serializer_class = ItemSerializer
+# class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Item.objects.all()
+#     serializer_class = ItemSerializer
 
 # class OrderItem(generics.ListCreateAPIView):
 #     queryset = OrderItem.objects.all()
@@ -97,8 +97,18 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
 #         return redirect('item_detail',pk=item.pk)
 
 def store(request):
+    if request.user.is_authenticated:
+        customer= request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer,ordered=False)
+        items=order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        items =[]
+        order = {'get_cart_total':0,'get_cart_items':0}
+        cartItems = order['get_cart_items']
     items = Item.objects.all()
-    return render(request, 'swirl/store.html',{'items':items})
+    context={'items':items, 'cartItems':cartItems}
+    return render(request, 'swirl/store.html',context)
 
 def item_detail(request,pk):
     item = Item.objects.get(id=pk)
@@ -146,23 +156,23 @@ def updateItem(request):
         orderItem.delete()
     return JsonResponse('item was add',safe=False)
     
-@permission_classes((permissions.AllowAny,))
-class AddToCartView(APIView):
-    def updateItem(request):
-        data = json.loads(request.body)
-        productId = data['productId']
-        action = data['action']
-        print('Action',action)
-        print('productId',productId)
-        customer = request.user.customer
-        item = Item.objects.get(id=productId)
-        order, created = Order.objects.get_or_create(customer=customer,ordered=False)
-        orderItem,created = OrderItem.objects.get_or_create(order=order,item=item)
-        if action =='add':
-            orderItem.quantity= (orderItem.quantity +1)
-        elif action =='remove':
-            orderItem.quantity = (orderItem.quantity -1)
-        orderItem.save()
-        if orderItem.quantity <=0:
-            orderItem.delete()
-        return JsonResponse('item was add',safe=False)
+# @permission_classes((permissions.AllowAny,))
+# class AddToCartView(APIView):
+#     def updateItem(request):
+#         data = json.loads(request.body)
+#         productId = data['productId']
+#         action = data['action']
+#         print('Action',action)
+#         print('productId',productId)
+#         customer = request.user.customer
+#         item = Item.objects.get(id=productId)
+#         order, created = Order.objects.get_or_create(customer=customer,ordered=False)
+#         orderItem,created = OrderItem.objects.get_or_create(order=order,item=item)
+#         if action =='add':
+#             orderItem.quantity= (orderItem.quantity +1)
+#         elif action =='remove':
+#             orderItem.quantity = (orderItem.quantity -1)
+#         orderItem.save()
+#         if orderItem.quantity <=0:
+#             orderItem.delete()
+#         return JsonResponse('item was add',safe=False)
