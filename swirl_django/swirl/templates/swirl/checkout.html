@@ -39,7 +39,7 @@
 				{% for item in items %}
 						<div class='cart-items'>
 							<section> <img class='thumbnail-checkout' src={{item.item.preview_url}}> </section>
-							<section> {{item}} </section>
+							<section> {{item.item.title}} </section>
 							<section> ${{item.item.price|floatformat:2}} </section>
 							<section> Qty: {{item.quantity}}</section>
 							
