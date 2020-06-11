@@ -24,12 +24,12 @@ h3 {
 	font-size: 24px;
 	text-shadow: 2px 2px 5px rgb(0, 0, 0);
 }
-a{
-    color: rgb(216, 188, 149);
+a {
+	color: rgb(216, 188, 149);
 }
-a:hover{
-    color: rgb(216, 188, 149);
-    opacity: 0.7;
+a:hover {
+	color: rgb(216, 188, 149);
+	opacity: 0.7;
 }
 .menu {
 	margin-top: 50px;
@@ -84,8 +84,8 @@ img.thumbnail:hover {
 	height: 50px;
 	font-weight: lighter;
 	box-shadow: 2px 2px 5px rgb(0, 0, 0);
-    border-radius: 50px;
-    border:1px solid rgba(216, 188, 149, 0.1)
+	border-radius: 50px;
+	border: 1px solid rgba(216, 188, 149, 0.1);
 }
 .detail-view {
 	margin: 50px auto;
@@ -100,8 +100,8 @@ img.thumbnail:hover {
 }
 h4,
 h5 {
-    padding-top: 15px;
-    padding-bottom: 10px;
+	padding-top: 15px;
+	padding-bottom: 10px;
 	font-family: 'Gotu';
 	border-bottom: 1px solid rgba(216, 188, 149, 0.4);
 	text-shadow: 3px 3px 3px black;
@@ -118,6 +118,13 @@ img.detail-image {
 	border: 1px solid rgba(216, 188, 149, 1);
 	margin-left: 20px;
 }
+.receipt-title {
+	width: 150px;
+	margin-left:20px;
+}
+.receipt-quantity,.receipt-price,.receipt-img {
+	width: 50px;
+}
 section {
 	width: 300px;
 }
@@ -126,10 +133,10 @@ section {
 	border-bottom: 1px solid rgba(216, 188, 149, 0.3);
 	margin: 20px auto;
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: space-between;
 	text-align: left;
 	align-items: center;
-	align-content: center;
+	
 }
 .form-container {
 	max-width: 1000px;
@@ -157,7 +164,7 @@ input {
 }
 .checkout-form,
 .order-summary {
-	width: 450px;
+	width: 470px;
 }
 .order-summary {
 	padding: 0 10px;
@@ -173,4 +180,31 @@ button {
 .cart-icon {
 	width: 35px;
 	padding: 0 5px;
+}
+
+/* login-form-styling */
+.swirl-login {
+	width: 600px;
+	margin: 50px auto;
+	border: 1px solid rgba(216, 188, 149, 0.1);
+	border-radius: 15px;
+	box-shadow: 2px 2px 4px black;
+}
+.login-form-content{
+	width:500px;
+	margin: 10px auto;
+}
+.primaryAction{
+	margin-left: 50px;
+}
+
+.secondaryAction{
+	margin-left: 10px;
+}
+#id_remember{
+
+	height: 20px;
+}
+.credential-input{
+	float:right
 }

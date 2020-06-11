@@ -30,7 +30,7 @@
 				</div>
 				<div class='name-field'> 
 					<button id='make-payment'>Submit order</button>
-					<button >Back to Cart</button>
+					<button > <a href='/cart/'> Back to Cart </a></button>
 					<button >PayPal</button>
 				</div>
 			</form>
@@ -38,10 +38,10 @@
 			<h3>Order Summary</h3>
 				{% for item in items %}
 						<div class='cart-items'>
-							<section> <img class='thumbnail-checkout' src={{item.item.preview_url}}> </section>
-							<section> {{item.item.title}} </section>
-							<section> ${{item.item.price|floatformat:2}} </section>
-							<section> Qty: {{item.quantity}}</section>
+							<div class='receipt-img'> <img class='thumbnail-checkout' src={{item.item.preview_url}}> </div>
+							<div class='receipt-title'> {{item.item.title}} </div>
+							<div class='receipt-price'> ${{item.item.price|floatformat:2}} </div>
+							<div class='receipt-quantity'> Qty: {{item.quantity}}</div>
 							
 						</div>
 				

@@ -74,7 +74,22 @@
                     </li>
                 </ul>
                 <a href='/cart/'> <img class= 'cart-icon' src='https://tkdesignportfolio.s3-us-west-1.amazonaws.com/swirl/cart.svg'> </a><p>{{cartItems}}</p>
-                
+                <body>
+                    {% block body %}                
+                    <div>
+                        <strong>Menu:</strong>
+                        <ul>
+                            {% if user.is_authenticated %}
+                            <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+                            <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+                            {% else %}
+                            <li><a href="{% url 'account_login' %}">Sign In</a></li>
+                            <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                  
+                    {% endblock %}
             </div>
         </nav>
         {% block content %} {% endblock %}

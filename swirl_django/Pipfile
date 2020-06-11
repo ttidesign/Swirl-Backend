@@ -14,10 +14,7 @@ dj-database-url = "*"
 gunicorn = "*"
 django-cors-headers = "*"
 whitenoise = "*"
-<<<<<<< HEAD
-=======
 django-heroku = "*"
->>>>>>> master
 
 [requires]
 python_version = "3.8"
