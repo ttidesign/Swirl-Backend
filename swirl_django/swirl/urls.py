@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
-from .views import  store, cart_detail, checkout, updateItem
+from .views import  store, item_detail, checkout ,cart_detail,updateItem, processOrdder
+# from .views import  updateItem
 from rest_framework.routers import DefaultRouter
 urlpatterns = [
     # path('', views.ItemList.as_view(), name='item_list'),
@@ -11,9 +12,6 @@ urlpatterns = [
     # path('users/<int:pk>', views.UserDetail.as_view(), name='user_detail'),
     # path('customers/', views.CustomerList.as_view(), name='customer_list'),
     # path('customers/<int:pk', views.CustomerDetail.as_view(), name='customer_detail'),
-    # path('add-to-cart/', views.AddToCartView.as_view(), name='add-to-cart'),
-    #html render view
-    #path('add-to-cart/<int:pk>', add_to_cart, name='add-to-cart'),
     path('products/', views.store, name='store'),
     path('products/<int:pk>', views.item_detail, name='item_detail'),
     path('cart/', views.cart_detail, name='cart_detail'),

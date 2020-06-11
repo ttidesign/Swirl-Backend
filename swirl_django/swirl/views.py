@@ -1,19 +1,17 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView
+from django.shortcuts import render,redirect
 from django.utils import timezone
 from django.contrib.auth.models import User
-from .models import Item, OrderItem, Order, Customer, ShippingAddress
+from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from rest_framework import generics 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST 
+from .models import Item, OrderItem, Order, Customer, ShippingAddress
 from .serializers import ItemSerializer, OrderItemSerializer, OrderSerializer, UserSerializer, CustomerSerializer
+from rest_framework import generics 
+from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions
 import json
 import datetime
-from django.views.decorators.csrf import csrf_exempt
+from .utils import cookieCart
 # Create your views here.
 
 
@@ -49,53 +47,7 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
 # class Order(generics.ListCreateAPIView):
 #     queryset = Order.objects.all()
 #     serializer_class = OrderSerializer
-
-# @permission_classes((permissions.AllowAny,))
-# class AddToCartView(APIView):
-#     def post(self,request):
-#         pk = request.data.get('id',None)
-#         if pk is None:
-#             return Response({'message':'Invalid request'}, status=HTTP_400_BAD_REQUEST)
-#         item = get_object_or_404(Item, pk=item.pk)
-#         order_item, created = OrderItem.objects.get_or_create(item=item,
-#         user=request.user,
-#             ordered=False)
-#         order_qs = Order.objects.filter(user=request.user, ordered=False)
-#         if order_qs.exists():
-#             order = order_qs[0]
-#             #check if there is any item in order
-#             if order.items.filter(item__pk=item.pk).exists():
-#                 order_item.quantity +=1
-#                 order_item.save()
-#                 return Response(status=HTTP_200_OK)
-#             else: 
-#                 order.item.add(order_item)
-#                 return Response(status=HTTP_200_OK)
-#         else:
-#             ordered_date = timezone.now()
-#             order = Order.objects.create(user=request.user, ordered_date=ordered_date)
-#             order.items.add(order_item)
-#             return Response(status=HTTP_200_OK)
         
-# def add_to_cart(request,pk):
-#     item = get_object_or_404(Item, pk=pk)
-#     order_item, created = OrderItem.objects.get_or_create(item=item,
-#     user=request.user,
-#         ordered=False)
-#     order_qs = Order.objects.filter(user=request.user, ordered=False)
-#     if order_qs.exists():
-#         order = order_qs[0]
-#         #check if there is any item in order
-#         if order.items.filter(item__pk=item.pk).exists():
-#             order_item.quantity +=1
-#             order_item.save()
-#         else: 
-#             order.item.add(order_item)
-#     else:
-#         ordered_date = timezone.now()
-#         order = Order.objects.create(user=request.user, ordered_date=ordered_date)
-#         order.items.add(order_item)
-#         return redirect('item_detail',pk=item.pk)
 
 def store(request):
     if request.user.is_authenticated:
@@ -104,16 +56,28 @@ def store(request):
         items=order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
-        items =[]
-        order = {'get_cart_total':0,'get_cart_items':0}
-        cartItems = order['get_cart_items']
+        cookieData = cookieCart(request)
+        cartItems = cookieData['cartItems']
+        # items =[]
+        # order = {'get_cart_total':0,'get_cart_items':0}
+        # cartItems = order['get_cart_items']
+        
     items = Item.objects.all()
     context={'items':items, 'cartItems':cartItems}
     return render(request, 'swirl/store.html',context)
 
 def item_detail(request,pk):
+    if request.user.is_authenticated:
+        customer= request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer,ordered=False)
+        items=order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        cookieData = cookieCart(request)
+        cartItems = cookieData['cartItems']
     item = Item.objects.get(id=pk)
-    return render(request, 'swirl/item_detail.html',{'item':item})
+    context={'item':item,'cartItems':cartItems}
+    return render(request, 'swirl/item_detail.html',context)
 
 def checkout(request):
     if request.user.is_authenticated:
@@ -121,9 +85,13 @@ def checkout(request):
         order, created = Order.objects.get_or_create(customer=customer,ordered=False)
         items=order.orderitem_set.all()
     else:
-        items =[]
-        order = {'get_cart_total':0,'get_cart_items':0}
-    context={'items':items, 'order':order}
+        cookieData = cookieCart(request)
+        cartItems = cookieData['cartItems']
+        order = cookieData['order']
+        items = cookieData['items']
+        # items =[]
+        # order = {'get_cart_total':0,'get_cart_items':0}
+    context={'items':items, 'order':order, 'cartItems':cartItems}
     return render(request, 'swirl/checkout.html',context)
 
 def cart_detail(request):
@@ -131,10 +99,14 @@ def cart_detail(request):
         customer= request.user.customer
         order, created = Order.objects.get_or_create(customer=customer,ordered=False)
         items=order.orderitem_set.all()
+        cartItems = order.get_cart_items
     else:
-        items =[]
-        order = {'get_cart_total':0,'get_cart_items':0}
-    context={'items':items, 'order':order}
+        cookieData = cookieCart(request)
+        cartItems = cookieData['cartItems']
+        order = cookieData['order']
+        items = cookieData['items']
+
+    context={'items':items, 'order':order, 'cartItems':cartItems}
     return render(request, 'swirl/cart_detail.html',context)
 
 # @csrf_exempt
@@ -144,11 +116,14 @@ def updateItem(request):
     action = data['action']
     print('Action',action)
     print('productId',productId)
-    print(data)
-    customer = request.user.customer or request.user.id
+    customer = request.user.customer 
+    # customer = data['user']['customer'] or data['user']['username']
+    # print(data['user'])
     item = Item.objects.get(id=productId)
+    # print(item)
     order, created = Order.objects.get_or_create(customer=customer,ordered=False)
     orderItem,created = OrderItem.objects.get_or_create(order=order,item=item)
+    print(order)
     if action =='add':
         orderItem.quantity= (orderItem.quantity +1)
     elif action =='remove':

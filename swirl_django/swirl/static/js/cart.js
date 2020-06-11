@@ -1,4 +1,3 @@
-
 let updateBtns = document.getElementsByClassName('update_cart');
 
 for (let i = 0; i < updateBtns.length; i++) {
@@ -7,14 +6,32 @@ for (let i = 0; i < updateBtns.length; i++) {
 		let action = this.dataset.action;
 		console.log('productId', productId, 'action', action);
 		console.log('User', user);
-		if (user === 'AnonymousUser') {
-			console.log('not logged in');
+		if (user == 'AnonymousUser') {
+			addCookieItem(productId, action);
 		} else {
 			updateUserOrder(productId, action);
 		}
 	});
 }
-
+function addCookieItem(productId, action) {
+	if (action == 'add') {
+		if (cart[productId] == undefined) {
+			cart[productId] = { 'quantity': 1 };
+		} else {
+			cart[productId]['quantity'] += 1;
+		}
+	}
+	if (action == 'remove') {
+		cart[productId]['quantity'] -= 1;
+		if (cart[productId]['quantity'] <= 0) {
+			console.log('removed item');
+			delete cart[productId];
+		}
+	}
+	console.log('Cart', cart);
+	document.cookie = 'cart=' + JSON.stringify(cart) + ';domain=;path=/';
+	location.reload()
+}
 function updateUserOrder(productId, action) {
 	console.log('user is logged in,sending data');
 	let url = '/update_item/';
@@ -33,7 +50,7 @@ function updateUserOrder(productId, action) {
 			return response.json();
 		})
 		.then((data) => {
-            console.log('data', data);
-            location.reload()
+			console.log('data', data);
+			location.reload();
 		});
 }

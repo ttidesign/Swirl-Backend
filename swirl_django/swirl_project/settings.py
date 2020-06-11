@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if os.environ['MODE'] == 'dev' else False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 LOGIN_REDIRECT_URL = '/'
 
 # Application definition
@@ -140,3 +140,5 @@ AUTHENTICATION_BACKENDS = [
 ]
 SITE_ID = 1
 CORS_ORIGIN_ALLOW_ALL = True
+# CSRF_COOKIE_SECURE = True
+# CORS_ALLOW_CREDENTIALS = True

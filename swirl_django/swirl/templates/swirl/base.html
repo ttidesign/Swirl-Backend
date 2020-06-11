@@ -29,6 +29,25 @@
         return cookieValue
     }
     let csrftoken = getToken('csrftoken')
+
+    function getCookie(name){
+        let cookieArr = document.cookie.split(';');
+        for(let i =0; i<cookieArr.length; i++ ) {
+            let cookiePair = cookieArr[i].split('=');
+            if(name == cookiePair[0].trim()) {
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+        return null
+    }
+    let cart = JSON.parse(getCookie('cart'))
+    if(cart== undefined) {
+        cart = {
+            
+        }
+        console.log('cart was create')
+        document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    }
     </script>
 </head>
 
@@ -54,7 +73,7 @@
                     <li class="nav-item">
                     </li>
                 </ul>
-                <a href='/cart/'> <img class= 'icon' src='https://tkdesignportfolio.s3-us-west-1.amazonaws.com/swirl/cart.svg'> </a><p>{{cartItems}}</p></a>
+                <a href='/cart/'> <img class= 'cart-icon' src='https://tkdesignportfolio.s3-us-west-1.amazonaws.com/swirl/cart.svg'> </a><p>{{cartItems}}</p>
                 
             </div>
         </nav>

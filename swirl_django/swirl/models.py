@@ -33,7 +33,7 @@ class Item(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     ingredients = models.CharField(max_length=300)
-    price = models.FloatField(default=5)
+    price = models.DecimalField(max_digits=5, decimal_places=2, default=5.00)
     espresso = models.CharField(choices=Espresso_Choices, default='Espresso Signature Blend', max_length=20)
     milk = models.CharField(choices=Milk_Choices,default='2%', max_length=20)
     shot = models.CharField(choices=Shot_Choices, default='double', max_length=20)
@@ -55,7 +55,7 @@ class Order(models.Model):
     def __str__(self):
         return str(self.id)
 
-    # @property
+    
 
     @property
     def get_cart_total(self):
