@@ -13,6 +13,6 @@
     {% endfor %}
 <h2>Total Item: {{order.get_cart_items}} </h2>
 <h2>Grand total: ${{order.get_cart_total|floatformat:2}}</h2>
- <a href='/products/'> <button> Continue Shopping </button> </a>
-<a href='/checkout/'> <button> Checkout </button> </a>
+<div class='styled-button'>  <a href='/products/'> Continue Shopping </a></div>
+<div class='styled-button'> <a href='/checkout/'>  Checkout  </a></div>
 {% endblock %}
