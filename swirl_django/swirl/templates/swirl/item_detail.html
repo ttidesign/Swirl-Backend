@@ -4,7 +4,7 @@
     <div>
         <img class='detail-image' src="{{ item.img_url }}" alt='specific espresso drink'></img>
     </div>
-    <div class='detail-info'>
+    <class class='detail-info'>
         <h4>{{item.title}}</h4>
         <p>{{item.description}}</p>
         <h5>Ingredients:</h5>
@@ -16,11 +16,23 @@
         <h5>Price:</h5>
         <p> ${{item.price}}</p>
         <!-- <button> <a data-product={{item.id}} data-action="add" class='update_cart'>Add to Cart</a></button> -->
-        <div class='styled-button'>
-            <a data-product={{item.id}} data-action="add" class='update_cart'><img class='cart-icon' src='https://tkdesignportfolio.s3-us-west-1.amazonaws.com/swirl/cart.svg'>Add to Cart</a>
+        <div class ='styled-div-container'> 
+            <div class='styled-button'>
+                <a data-product={{item.id}} data-action="add" class='update_cart'><img class='cart-icon' src='https://tkdesignportfolio.s3-us-west-1.amazonaws.com/swirl/cart.svg'>Add to Cart</a>
+            </div>
+            <div class='styled-button'>
+                <a href='/products/'> Add to Favorite </a>
+            </div>
         </div>
-        <div class='styled-button'>
-            <a href='/products/'>Home</a>
+        <div class='styled-div-container'> 
+            <div class='styled-button2'>
+                <a href='/cart/'>View Cart</a>
+            </div>
+        </div>
+        <div class='styled-div-container'>
+            <div class='styled-button2'>
+                <a href='/products/'>Home</a>
+            </div>
         </div>
     </div>
 </div>

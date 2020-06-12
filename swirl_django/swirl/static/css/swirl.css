@@ -24,6 +24,13 @@ h3 {
 	font-size: 24px;
 	text-shadow: 2px 2px 5px rgb(0, 0, 0);
 }
+h4,
+h5 {
+	padding-bottom: 10px;
+	font-family: 'Gotu';
+	border-bottom: 1px solid rgba(216, 188, 149, 0.4);
+	text-shadow: 3px 3px 3px black;
+}
 a {
 	color: rgb(216, 188, 149);
 }
@@ -37,6 +44,7 @@ a:hover {
 	padding-bottom: 20px;
 	border-top: 1px solid rgba(216, 188, 149, 0.2);
 }
+/* main menu styling */
 .main-gallery {
 	align-items: center;
 	margin: 0px auto;
@@ -71,21 +79,25 @@ img.thumbnail:hover {
 	border: 3px solid rgb(216, 188, 149);
 	filter: saturate(1);
 }
-.styled-button {
+.styled-button,
+.styled-button2 {
 	display: flex;
 	justify-content: space-around;
 	text-align: center;
 	align-items: center;
-	margin: 20px auto;
+	margin: 5px 5px;
+	padding-bottom: 5px;
 	font-size: 16px;
-	align-items: center;
+	/* align-items: center; */
 	line-height: 1.6;
-	width: 150px;
+	width: 180px;
 	height: 50px;
-	font-weight: lighter;
 	box-shadow: 2px 2px 5px rgb(0, 0, 0);
 	border-radius: 50px;
 	border: 1px solid rgba(216, 188, 149, 0.1);
+}
+.styled-button2 {
+	width: 400px;
 }
 .detail-view {
 	margin: 50px auto;
@@ -98,14 +110,7 @@ img.thumbnail:hover {
 	margin-left: 20px;
 	font-family: 'Gotu';
 }
-h4,
-h5 {
-	padding-top: 15px;
-	padding-bottom: 10px;
-	font-family: 'Gotu';
-	border-bottom: 1px solid rgba(216, 188, 149, 0.4);
-	text-shadow: 3px 3px 3px black;
-}
+
 img.detail-image {
 	width: 450px;
 	height: auto;
@@ -120,9 +125,11 @@ img.detail-image {
 }
 .receipt-title {
 	width: 150px;
-	margin-left:20px;
+	margin-left: 20px;
 }
-.receipt-quantity,.receipt-price,.receipt-img {
+.receipt-quantity,
+.receipt-price,
+.receipt-img {
 	width: 50px;
 }
 section {
@@ -136,7 +143,6 @@ section {
 	justify-content: space-between;
 	text-align: left;
 	align-items: center;
-	
 }
 .form-container {
 	max-width: 1000px;
@@ -146,8 +152,7 @@ section {
 }
 input,
 label,
-form,
-.name-field {
+form {
 	padding: 10px;
 }
 input {
@@ -157,7 +162,8 @@ input {
 	background-color: white;
 	outline: none;
 }
-.name-field {
+.styled-div-container {
+	margin-top: 5px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -190,21 +196,23 @@ button {
 	border-radius: 15px;
 	box-shadow: 2px 2px 4px black;
 }
-.login-form-content{
-	width:500px;
+.login-form-content {
+	width: 500px;
 	margin: 10px auto;
 }
-.primaryAction{
+.primaryAction {
 	margin-left: 50px;
 }
 
-.secondaryAction{
+.secondaryAction {
 	margin-left: 10px;
 }
-#id_remember{
-
+#id_remember {
 	height: 20px;
 }
-.credential-input{
-	float:right
+.credential-input {
+	float: right;
+}
+.paypal-button {
+	margin-top: 30px;
 }

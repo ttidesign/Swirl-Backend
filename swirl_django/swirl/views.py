@@ -140,6 +140,32 @@ def processOrdder(request):
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer,ordered=False)
+        
+    else:
+        print('User is not logged in')
+        print('COOKIES:',request.COOKIES)
+        name = data['form']['name']
+        print(data['form'])
+        email = data['form']['email']
+        cookieData = cookieCart(request)
+        items = cookieData['items']
+        customer, created = Customer.objects.get_or_create(
+            email =  email,
+        )
+        customer.name = name
+        customer.save()
+
+        order = Order.objects.create(
+            customer = customer,
+            ordered= False,
+        )
+        for item in items:
+            added_product = Item.objects.get(id=item['item']['id'])
+            orderItem = OrderItem.objects.create(
+                item = added_product,
+                order = order,
+                quantity = item['quantity']
+            )
         total = float(data['form']['total'])
         order.transaction_id = transaction_id
 
@@ -147,7 +173,14 @@ def processOrdder(request):
             print(total)
             order.ordered = True
             order.save()
-        ShippingAddress.objects.create(
+    total = float(data['form']['total'])
+    order.transaction_id = transaction_id
+
+    if total == float(order.get_cart_total):
+        # print(total)
+        order.ordered = True
+    order.save()
+    ShippingAddress.objects.create(
             customer=customer,
             order=order,
             address=data['shipping']['address'],
@@ -155,8 +188,6 @@ def processOrdder(request):
             state=data['shipping']['state'],
             zipcode=data['shipping']['zipcode'],
         )
-    else:
-        print('User is not logged in')
     return JsonResponse('Payment complete!', safe=False)
 
 
