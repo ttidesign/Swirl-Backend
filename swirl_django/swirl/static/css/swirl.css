@@ -4,6 +4,16 @@ body {
 	color: rgb(216, 188, 149);
 	font-family: 'Lato';
 }
+.intro{
+	width:400px;
+	margin: 200px auto;
+	font-family: 'Lato';
+	text-decoration: none;
+	font-size: 17px;
+	text-align: center;
+}
+a{text-decoration: none;}
+
 .carousel-indicators {
 	background-color: transparent;
 }
@@ -14,6 +24,10 @@ body {
 }
 .carousel-container {
 	margin: 30px auto;
+}
+.main-logo {
+	width: 80px;
+	height: auto;
 }
 h1,
 h2 {

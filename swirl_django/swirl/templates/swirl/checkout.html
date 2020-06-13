@@ -3,6 +3,7 @@
 {% block content %}
 <h3>Checkout</h3>
 	<div class='form-container'> 
+			{% csrf_token %}
 			<form id='form' class = 'checkout-form'>
 				<div class='styled-div-container'> 
 					<label for="fname">Name</label>
@@ -29,7 +30,7 @@
 					<input type="text" name="zipcode" value="Zipcode" />
 				</div>
 				<div class='styled-div-container'> 
-					<div class='styled-button'  id='make-payment'>Submit Order</div >
+					<div class='styled-button'  id='make-payment'><button>Submit Order </button></div >
 					<div class='styled-button'  > <a href='/cart/'> Back to Cart </a></div >
 				</div>
 			</form>
@@ -83,7 +84,7 @@
 let form = document.getElementById('form')
 
 document.getElementById('make-payment').addEventListener('click',function(e){
-	
+	submitFormData()
 })
 function submitFormData(){
 	let userFormData = {

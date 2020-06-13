@@ -1,7 +1,6 @@
 from django.shortcuts import render,redirect
 from django.utils import timezone
 from django.contrib.auth.models import User
-from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .models import Item, OrderItem, Order, Customer, ShippingAddress
 from .serializers import ItemSerializer, OrderItemSerializer, OrderSerializer, UserSerializer, CustomerSerializer
@@ -48,6 +47,8 @@ from .utils import cookieCart
 #     queryset = Order.objects.all()
 #     serializer_class = OrderSerializer
         
+def home(request):
+    return render(request, 'swirl/home.html')
 
 def store(request):
     if request.user.is_authenticated:
@@ -110,7 +111,7 @@ def cart_detail(request):
     context={'items':items, 'order':order, 'cartItems':cartItems}
     return render(request, 'swirl/cart_detail.html',context)
 
-# @csrf_exempt
+
 def updateItem(request):
     data = json.loads(request.body)
     productId = data['productId']
