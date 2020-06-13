@@ -49,6 +49,19 @@ from .utils import cookieCart
         
 def home(request):
     return render(request, 'swirl/home.html')
+    
+def store_map(request):
+    if request.user.is_authenticated:
+        customer= request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer,ordered=False)
+        items=order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        cookieData = cookieCart(request)
+        cartItems = cookieData['cartItems']
+        items = Item.objects.all()
+    context={'items':items, 'cartItems':cartItems}
+    return render(request,'swirl/store_map.html',context)
 
 def store(request):
     if request.user.is_authenticated:

@@ -4,15 +4,17 @@ body {
 	color: rgb(216, 188, 149);
 	font-family: 'Lato';
 }
-.intro{
-	width:400px;
+.intro {
+	width: 400px;
 	margin: 200px auto;
 	font-family: 'Lato';
 	text-decoration: none;
 	font-size: 17px;
 	text-align: center;
 }
-a{text-decoration: none;}
+a {
+	text-decoration: none;
+}
 
 .carousel-indicators {
 	background-color: transparent;
@@ -29,6 +31,16 @@ a{text-decoration: none;}
 	width: 80px;
 	height: auto;
 }
+.info-footer{
+	margin-top: 50px;
+	padding:15px 0 0px 0;
+	text-align: center;
+	opacity: 0.5;
+	font-size: 14px;
+	border-top: 1px solid rgba(216, 188, 149, 0.3);
+}
+.styled-footer{
+}
 h1,
 h2 {
 	background-color: rgb(35, 31, 28);
@@ -40,10 +52,13 @@ h3 {
 }
 h4,
 h5 {
-	padding-bottom: 10px;
+	padding-bottom: 5px;
 	font-family: 'Gotu';
 	border-bottom: 1px solid rgba(216, 188, 149, 0.4);
 	text-shadow: 3px 3px 3px black;
+}
+h5 {
+	padding-top: 15px;
 }
 a {
 	color: rgb(216, 188, 149);
@@ -182,6 +197,10 @@ input {
 	justify-content: space-between;
 	align-items: center;
 }
+.styled-div-container-2{
+	margin-left: 20px;
+	font-size: 25px;
+}
 .checkout-form,
 .order-summary {
 	width: 470px;
@@ -200,6 +219,11 @@ button {
 .cart-icon {
 	width: 35px;
 	padding: 0 5px;
+}
+.sign{
+	width: 15px;
+	height: auto;
+	margin: 2px 5px;
 }
 
 /* login-form-styling */
@@ -230,3 +254,4 @@ button {
 .paypal-button {
 	margin-top: 30px;
 }
+
