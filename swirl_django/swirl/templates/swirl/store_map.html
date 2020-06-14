@@ -1,7 +1,47 @@
 {% extends 'swirl/base.html' %} {% block content %}
-<h1>Map time </h1>
-<p>YUP</p>
-<iframe width="600" height="450" frameborder="0" style="border:0"
-    src="https://www.google.com/maps/embed/v1/view?zoom=11&center=37.7749%2C-122.4194&key=AIzaSyCME6AzWQl9OTGQKv3NJ_lWhixgJAllKWo"
-    allowfullscreen></iframe>
+<h3>Our Locations</h3>
+<div class="store-info">
+	<p>
+		For stores near your location please click
+		<a
+			href="https://www.google.com/maps/search/coffee+near+San+Francisco,+CA/@37.7780688,-122.5207987,12z/data=!3m1!4b1"
+			target="blank"
+		>
+			HERE
+		</a>
+	</p>
+</div>
+<div class="map-container">
+	<div class="google-map-container">
+		<iframe
+			class="google-map"
+			width="500"
+			height="350"
+			frameborder="0"
+			style="border: 0;"
+			src="https://www.google.com/maps/embed/v1/view?zoom=11&center=37.7749%2C-122.4194&key=AIzaSyCME6AzWQl9OTGQKv3NJ_lWhixgJAllKWo"
+			allowfullscreen
+		>
+		</iframe>
+	</div>
+	<div class="store-info">
+		<ul>
+			<span> 1452 Franklin St, San Francisco, CA 94109 </span>
+			<p>415-200-6582</p>
+
+			<span> 1609 Palou Ave, San Francisco, CA 94124 </span>
+			<p>415-202-9396</p>
+
+			<span
+				>270 7th St, San Francisco, CA 94103
+				<p>415-204-4152</p>
+			</span>
+			<span>2340 Polk St, San Francisco, CA 94109</span>
+			<p>415-206-5708</p>
+			<span>1222 Noriega St, San Francisco, CA 94122</span>
+			<p>415-208-6218</p>
+		</ul>
+	</div>
+</div>
+
 {% endblock %}
