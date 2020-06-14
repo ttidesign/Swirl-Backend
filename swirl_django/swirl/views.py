@@ -75,7 +75,6 @@ def store(request):
         # items =[]
         # order = {'get_cart_total':0,'get_cart_items':0}
         # cartItems = order['get_cart_items']
-        
     items = Item.objects.all()
     context={'items':items, 'cartItems':cartItems}
     return render(request, 'swirl/store.html',context)
