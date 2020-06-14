@@ -4,6 +4,22 @@ body {
 	color: rgb(216, 188, 149);
 	font-family: 'Lato';
 }
+.nav-link{
+	color: rgb(216, 188, 149)!important;
+}
+.intro {
+	width: 400px;
+	margin: 200px auto;
+	font-family: 'Lato';
+	text-decoration: none;
+	font-size: 17px;
+	text-align: center;
+}
+a {
+	text-decoration: none;
+	color: rgb(216, 188, 149);
+}
+
 .carousel-indicators {
 	background-color: transparent;
 }
@@ -15,6 +31,20 @@ body {
 .carousel-container {
 	margin: 30px auto;
 }
+.main-logo {
+	width: 80px;
+	height: auto;
+}
+.info-footer {
+	margin-top: 50px;
+	padding: 15px 0 0px 0;
+	text-align: center;
+	opacity: 0.5;
+	font-size: 14px;
+	border-top: 1px solid rgba(216, 188, 149, 0.3);
+}
+.styled-footer {
+}
 h1,
 h2 {
 	background-color: rgb(35, 31, 28);
@@ -24,12 +54,22 @@ h3 {
 	font-size: 24px;
 	text-shadow: 2px 2px 5px rgb(0, 0, 0);
 }
-a{
-    color: rgb(216, 188, 149);
+h4,
+h5 {
+	padding-bottom: 5px;
+	font-family: 'Gotu';
+	border-bottom: 1px solid rgba(216, 188, 149, 0.4);
+	text-shadow: 3px 3px 3px black;
 }
-a:hover{
-    color: rgb(216, 188, 149);
-    opacity: 0.7;
+h5 {
+	padding-top: 15px;
+}
+a {
+	color: rgb(216, 188, 149);
+}
+a:hover {
+	color: rgb(216, 188, 149);
+	opacity: 0.7;
 }
 .menu {
 	margin-top: 50px;
@@ -37,6 +77,7 @@ a:hover{
 	padding-bottom: 20px;
 	border-top: 1px solid rgba(216, 188, 149, 0.2);
 }
+/* main menu styling */
 .main-gallery {
 	align-items: center;
 	margin: 0px auto;
@@ -71,21 +112,25 @@ img.thumbnail:hover {
 	border: 3px solid rgb(216, 188, 149);
 	filter: saturate(1);
 }
-.styled-button {
+.styled-button,
+.styled-button2 {
 	display: flex;
 	justify-content: space-around;
 	text-align: center;
 	align-items: center;
-	margin: 20px auto;
+	margin: 5px 5px;
+	padding-bottom: 5px;
 	font-size: 16px;
-	align-items: center;
+	/* align-items: center; */
 	line-height: 1.6;
-	width: 150px;
+	width: 180px;
 	height: 50px;
-	font-weight: lighter;
 	box-shadow: 2px 2px 5px rgb(0, 0, 0);
-    border-radius: 50px;
-    border:1px solid rgba(216, 188, 149, 0.1)
+	border-radius: 50px;
+	border: 1px solid rgba(216, 188, 149, 0.1);
+}
+.styled-button2 {
+	width: 400px;
 }
 .detail-view {
 	margin: 50px auto;
@@ -98,14 +143,7 @@ img.thumbnail:hover {
 	margin-left: 20px;
 	font-family: 'Gotu';
 }
-h4,
-h5 {
-    padding-top: 15px;
-    padding-bottom: 10px;
-	font-family: 'Gotu';
-	border-bottom: 1px solid rgba(216, 188, 149, 0.4);
-	text-shadow: 3px 3px 3px black;
-}
+
 img.detail-image {
 	width: 450px;
 	height: auto;
@@ -118,6 +156,15 @@ img.detail-image {
 	border: 1px solid rgba(216, 188, 149, 1);
 	margin-left: 20px;
 }
+.receipt-title {
+	width: 150px;
+	margin-left: 20px;
+}
+.receipt-quantity,
+.receipt-price,
+.receipt-img {
+	width: 50px;
+}
 section {
 	width: 300px;
 }
@@ -126,10 +173,9 @@ section {
 	border-bottom: 1px solid rgba(216, 188, 149, 0.3);
 	margin: 20px auto;
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: space-between;
 	text-align: left;
 	align-items: center;
-	align-content: center;
 }
 .form-container {
 	max-width: 1000px;
@@ -139,8 +185,7 @@ section {
 }
 input,
 label,
-form,
-.name-field {
+form {
 	padding: 10px;
 }
 input {
@@ -150,14 +195,19 @@ input {
 	background-color: white;
 	outline: none;
 }
-.name-field {
+.styled-div-container {
+	margin-top: 10px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
+.styled-div-container-2 {
+	margin-left: 20px;
+	font-size: 25px;
+}
 .checkout-form,
 .order-summary {
-	width: 450px;
+	width: 470px;
 }
 .order-summary {
 	padding: 0 10px;
@@ -174,3 +224,54 @@ button {
 	width: 35px;
 	padding: 0 5px;
 }
+.sign {
+	width: 15px;
+	height: auto;
+	margin: 2px 5px;
+}
+
+/* login-form-styling */
+.swirl-login {
+	width: 600px;
+	margin: 50px auto;
+	border: 1px solid rgba(216, 188, 149, 0.1);
+	border-radius: 15px;
+	box-shadow: 2px 2px 4px black;
+}
+.login-form-content {
+	width: 500px;
+	margin: 10px auto;
+}
+.primaryAction {
+	margin-left: 50px;
+}
+
+.secondaryAction {
+	margin-left: 10px;
+}
+#id_remember {
+	height: 20px;
+}
+.credential-input {
+	float: right;
+}
+.paypal-button {
+	margin-top: 30px;
+}
+
+/* store/google map styling */
+.google-map-container {
+	display: flex;
+}
+.google-map{
+	width:500px;
+	margin:0 auto;
+	opacity: .9;
+}
+.store-info {
+text-align: center;
+margin-top: 20px;
+margin-right: 30px;
+}
+
+/* Responsive */
