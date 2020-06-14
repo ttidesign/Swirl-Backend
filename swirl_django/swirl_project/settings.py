@@ -136,10 +136,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# STATICFILES_DIRS = (
-#         os.path.join(BASE_DIR, 'static'),
-#     )
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
     
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -147,12 +147,6 @@ AUTHENTICATION_BACKENDS = [
 ]
 SITE_ID = 1
 CORS_ORIGIN_ALLOW_ALL = True
-<<<<<<< HEAD
-# CSRF_COOKIE_SECURE = True
-# CORS_ALLOW_CREDENTIALS = True
-django_heroku.settings(locals())
-=======
 CSRF_COOKIE_SECURE = True
 CORS_ALLOW_CREDENTIALS = True
 # django_heroku.settings(locals())
->>>>>>> development
