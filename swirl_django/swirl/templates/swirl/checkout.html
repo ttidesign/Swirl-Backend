@@ -3,64 +3,94 @@
 {% block content %}
 <h3>Checkout</h3>
 	<div class='form-container'> 
+			{% csrf_token %}
 			<form id='form' class = 'checkout-form'>
-				<div class='name-field'> 
+				<div class='styled-div-container'> 
 					<label for="fname">Name</label>
 					<input type="text" name="name" value="Name" />
 				</div >
-				<div class='name-field'> 
+				<div class='styled-div-container'> 
 					<label for="email">Email</label>
 					<input type="text" name="email" value="Email" />
 				</div>
-					<div class='name-field'> 
+					<div class='styled-div-container'> 
 					<label for="address">Address</label>
 					<input type="text" name="address" value="123 King Ave" />
 				</div>
-				<div class='name-field'> 
-					<label for="fname">City</label>
+				<div class='styled-div-container'> 
+					<label for="city">City</label>
 					<input type="text" name="city" value="City" />
-				</div class='name-field'>
-				<div class='name-field'> 
-					<label for="fname">State</label>
+				</div class='styled-div-container'>
+				<div class='styled-div-container'> 
+					<label for="state">State</label>
 					<input type="text" name="state" value="State" />
-				</div class='name-field'>
-				<div class='name-field'> 
-					<label for="fname">Zipcode</label>
+				</div class='styled-div-container'>
+				<div class='styled-div-container'> 
+					<label for="zipcode">Zipcode</label>
 					<input type="text" name="zipcode" value="Zipcode" />
 				</div>
-				<div class='name-field'> 
-					<button id='make-payment'>Submit order</button>
-					<button >Back to Cart</button>
-					<button >PayPal</button>
+				<div class='styled-div-container'> 
+					<div class='styled-button'> <a href='/cart'>  Back to Cart 
+					</a></div >
+					<div class='styled-button'> <a href='/products/'> Cancel</a></div >
 				</div>
 			</form>
 			<div class='order-summary'> 
-			<h3>Order Summary</h3>
+				<h3>Order Summary</h3>
 				{% for item in items %}
-						<div class='cart-items'>
-							<section> <img class='thumbnail-checkout' src={{item.item.preview_url}}> </section>
-							<section> {{item.item.title}} </section>
-							<section> ${{item.item.price|floatformat:2}} </section>
-							<section> Qty: {{item.quantity}}</section>
-							
-						</div>
+				<div class='cart-items'>
+					<div class='receipt-img'> <img class='thumbnail-checkout' src={{item.item.preview_url}}> </div>
+					<div class='receipt-title'> {{item.item.title}} </div>
+					<div class='receipt-price'> ${{item.item.price|floatformat:2}} </div>
+					<div class='receipt-quantity'> Qty: {{item.quantity}}</div>
+					
+				</div>
 				
 				{% endfor %}
-		
-			<p>Items: {{order.get_cart_items}}</p>
-			<p>Grand Total: ${{order.get_cart_total|floatformat:2}}</p>
+				
+				<p>Items: {{order.get_cart_items}}</p>
+				<p>Grand Total: ${{order.get_cart_total|floatformat:2}}</p>
+				<div class='paypal-button' id="paypal-button-container"></div>
 			</div>
 		</div>
+<script src="https://www.paypal.com/sdk/js?client-id=AYNRIKWfZKaitfL-vMN0P56ae8pFQxEYSrHkBl5IxYR1d0mf2lLR0hvgFjN3Q11Hg0OR7CEULMYbadz-"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
+</script>
+<script>
+	let total = '{{order.get_cart_total}}'
+	paypal.Buttons({
+		style:{
+			color:'black'
+		},
+		createOrder: function (data, actions) {
+			// This function sets up the details of the transaction, including the amount and line item details.
+			return actions.order.create({
+				purchase_units: [{
+					amount: {
+						value: parseFloat(total).toFixed(2)
+					}
+				}]
+			});
+		},
+		onApprove: function (data, actions) {
+			// This function captures the funds from the transaction.
+			return actions.order.capture().then(function (details) {
+				// This function shows a transaction success message to your buyer.
+				submitFormData()
+			});
+		}
+	}).render('#paypal-button-container');
+  //This function displays Smart Payment Buttons on your web page.
+</script>
 <script type='text/javascript'>
 let form = document.getElementById('form')
-let total='{{order.get_cart_total}}'
+
 document.getElementById('make-payment').addEventListener('click',function(e){
 	submitFormData()
 })
 function submitFormData(){
 	let userFormData = {
 		'name':form.name.value,
-		'email': form.name.email,
+		'email': form.email.value,
 		'total':total
 	}
 	let shippingInfo = {
@@ -80,6 +110,8 @@ function submitFormData(){
 	}).then((response)=>response.json()).then((data)=>{
 		console.log('Success', data);
 		alert('Transaction Complete!');
+		cart ={}
+		document.cookie = 'cart=' +JSON.stringify(cart) + ';domain=;path=/'
 		window.location.href = "{% url 'store' %}"
 	})
 	console.log('payment button clicked')

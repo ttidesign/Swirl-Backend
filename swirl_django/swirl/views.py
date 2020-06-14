@@ -1,7 +1,6 @@
 from django.shortcuts import render,redirect
 from django.utils import timezone
 from django.contrib.auth.models import User
-from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .models import Item, OrderItem, Order, Customer, ShippingAddress
 from .serializers import ItemSerializer, OrderItemSerializer, OrderSerializer, UserSerializer, CustomerSerializer
@@ -48,6 +47,21 @@ from .utils import cookieCart
 #     queryset = Order.objects.all()
 #     serializer_class = OrderSerializer
         
+def home(request):
+    return render(request, 'swirl/home.html')
+    
+def store_map(request):
+    if request.user.is_authenticated:
+        customer= request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer,ordered=False)
+        items=order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        cookieData = cookieCart(request)
+        cartItems = cookieData['cartItems']
+        items = Item.objects.all()
+    context={'items':items, 'cartItems':cartItems}
+    return render(request,'swirl/store_map.html',context)
 
 def store(request):
     if request.user.is_authenticated:
@@ -84,6 +98,7 @@ def checkout(request):
         customer= request.user.customer
         order, created = Order.objects.get_or_create(customer=customer,ordered=False)
         items=order.orderitem_set.all()
+        cartItems = order.get_cart_items
     else:
         cookieData = cookieCart(request)
         cartItems = cookieData['cartItems']
@@ -109,7 +124,6 @@ def cart_detail(request):
     context={'items':items, 'order':order, 'cartItems':cartItems}
     return render(request, 'swirl/cart_detail.html',context)
 
-# @csrf_exempt
 def updateItem(request):
     data = json.loads(request.body)
     productId = data['productId']
@@ -139,6 +153,32 @@ def processOrdder(request):
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer,ordered=False)
+        
+    else:
+        print('User is not logged in')
+        print('COOKIES:',request.COOKIES)
+        name = data['form']['name']
+        print(data['form'])
+        email = data['form']['email']
+        cookieData = cookieCart(request)
+        items = cookieData['items']
+        customer, created = Customer.objects.get_or_create(
+            email =  email,
+        )
+        customer.name = name
+        customer.save()
+
+        order = Order.objects.create(
+            customer = customer,
+            ordered= False,
+        )
+        for item in items:
+            added_product = Item.objects.get(id=item['item']['id'])
+            orderItem = OrderItem.objects.create(
+                item = added_product,
+                order = order,
+                quantity = item['quantity']
+            )
         total = float(data['form']['total'])
         order.transaction_id = transaction_id
 
@@ -146,7 +186,14 @@ def processOrdder(request):
             print(total)
             order.ordered = True
             order.save()
-        ShippingAddress.objects.create(
+    total = float(data['form']['total'])
+    order.transaction_id = transaction_id
+
+    if total == float(order.get_cart_total):
+        # print(total)
+        order.ordered = True
+    order.save()
+    ShippingAddress.objects.create(
             customer=customer,
             order=order,
             address=data['shipping']['address'],
@@ -154,9 +201,9 @@ def processOrdder(request):
             state=data['shipping']['state'],
             zipcode=data['shipping']['zipcode'],
         )
-    else:
-        print('User is not logged in')
     return JsonResponse('Payment complete!', safe=False)
+
+
 
 # @permission_classes((permissions.AllowAny,))
 # class AddToCartView(APIView):

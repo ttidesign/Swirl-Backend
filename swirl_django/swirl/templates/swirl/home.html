@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+		<title>{% block head_title %}{% endblock %}</title>
+		<link rel="stylesheet" href="{% static 'css/swirl.css' %}" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Gotu&family=Lato:wght@300&display=swap"
+			rel="stylesheet"
+		/>
+		{% block extra_head %} {% endblock %}
+	</head>
+
+	<body>
+		<div class="intro">
+			<a href='/products/'> <img
+				src="https://tkdesignportfolio.s3-us-west-1.amazonaws.com/swirl/swirl+logo.svg"
+				alt="swirl logo"
+			/></a>
+            <p>Welcome to Swirl Coffee</p>
+        
+        {% if user.is_authenticated %}
+                <div class="styled-button2">
+				<a href="{% url 'account_email' %}">Change E-mail</a>
+			</div>
+			<div class="styled-button2">
+                <a href="{% url 'account_logout' %}">Sign Out</a>
+            </div>
+            <p>Or</p>
+            <div class="styled-button2">
+                <a href="{% url 'store' %}">Back To Site</a>
+            </div>
+			{% else %}
+			<p>Please select one of the followings to proceed </p>
+			<div class="styled-button2">
+				<a href="{% url 'account_login' %}">Sign In</a>
+			</div>
+			<div class="styled-button2">
+                <a href="{% url 'account_signup' %}">Sign Up</a>
+			</div>
+            <p>Or</p>
+			<div class="styled-button2">
+				<a href="{% url 'store' %}">Proceed To Site</a>
+			</div>
+			{% endif %}
+        </div>
+	</body>
+</html>
