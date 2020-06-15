@@ -242,6 +242,11 @@ button {
 	width: 500px;
 	margin: 10px auto;
 }
+.signup-button,.signin-button,.signout-button{
+	border-radius: 20px;
+	width:150px;
+	border: 1px solid rgba(216, 188, 149, 0.1)
+}
 .primaryAction {
 	margin-left: 50px;
 }

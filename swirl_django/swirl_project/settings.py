@@ -150,3 +150,4 @@ CORS_ORIGIN_ALLOW_ALL = True
 CSRF_COOKIE_SECURE = True
 CORS_ALLOW_CREDENTIALS = True
 # django_heroku.settings(locals())
+

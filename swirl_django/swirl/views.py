@@ -3,57 +3,62 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from .models import Item, OrderItem, Order, Customer, ShippingAddress
-from .serializers import ItemSerializer, OrderItemSerializer, OrderSerializer, UserSerializer, CustomerSerializer
+from .serializers import ItemSerializer, OrderItemSerializerDRF, OrderSerializerDRF, UserSerializer, CustomerSerializer
 from rest_framework import generics 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
+from .permissions import IsOwnerOrReject , IsOwnerOrReadOnly
 from rest_framework import permissions
 import json
 import datetime
 from .utils import cookieCart
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 # Create your views here.
 
 
 
-# class CustomerList(generics.ListCreateAPIView):
-#     queryset = Customer.objects.all()
-#     serializer_class = CustomerSerializer
+class CustomerList(generics.ListCreateAPIView):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
 
-# class UserList(generics.ListCreateAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
+class UserList(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsOwnerOrReject,IsOwnerOrReadOnly]
 
-# class CustomerDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Customer.objects.all()
-#     serializer_class = CustomerSerializer
+class CustomerDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
 
-# class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReject,IsOwnerOrReadOnly]
 
-# class ItemList(generics.ListCreateAPIView):
-#     queryset = Item.objects.all()
-#     serializer_class = ItemSerializer
+class ItemList(generics.ListCreateAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
 
-# class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Item.objects.all()
-#     serializer_class = ItemSerializer
+class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
 
-# class OrderItem(generics.ListCreateAPIView):
-#     queryset = OrderItem.objects.all()
-#     serializer_class = OrderItemSerializer
+class OrderItemDRF(generics.ListCreateAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializerDRF
 
-# class Order(generics.ListCreateAPIView):
-#     queryset = Order.objects.all()
-#     serializer_class = OrderSerializer
+class OrderDRF(generics.ListCreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializerDRF
         
 def home(request):
     return render(request, 'swirl/home.html')
     
 def store_map(request):
     if request.user.is_authenticated:
-        customer= request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer,ordered=False)
+        # customer= request.user.customer
+        order, created = Order.objects.get_or_create(ordered=False)
+        #missing customer=customer inside order
         items=order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
@@ -65,8 +70,10 @@ def store_map(request):
 
 def store(request):
     if request.user.is_authenticated:
-        customer= request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer,ordered=False)
+        customer= request.user.username
+        print(customer)
+        order, created = Order.objects.get_or_create(ordered=False)
+        #missing customer=customer inside order
         items=order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
@@ -81,8 +88,9 @@ def store(request):
 
 def item_detail(request,pk):
     if request.user.is_authenticated:
-        customer= request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer,ordered=False)
+        # customer= request.user.customer
+        order, created = Order.objects.get_or_create(ordered=False)
+        #missing customer=customer inside order
         items=order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
@@ -94,8 +102,9 @@ def item_detail(request,pk):
 
 def checkout(request):
     if request.user.is_authenticated:
-        customer= request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer,ordered=False)
+        # customer= request.user.customer
+        order, created = Order.objects.get_or_create(ordered=False)
+        #missing customer=customer inside order
         items=order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
@@ -110,8 +119,9 @@ def checkout(request):
 
 def cart_detail(request):
     if request.user.is_authenticated:
-        customer= request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer,ordered=False)
+        # customer= request.user.customer
+        order, created = Order.objects.get_or_create(ordered=False)
+        #missing customer=customer inside order
         items=order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
@@ -129,12 +139,14 @@ def updateItem(request):
     action = data['action']
     print('Action',action)
     print('productId',productId)
-    customer = request.user.customer 
+    customer = request.user.username
+    print(customer) 
     # customer = data['user']['customer'] or data['user']['username']
     # print(data['user'])
     item = Item.objects.get(id=productId)
     # print(item)
-    order, created = Order.objects.get_or_create(customer=customer,ordered=False)
+    order, created = Order.objects.get_or_create(ordered=False)
+    #missing customer=customer inside order
     orderItem,created = OrderItem.objects.get_or_create(order=order,item=item)
     print(order)
     if action =='add':
@@ -149,10 +161,16 @@ def updateItem(request):
 def processOrdder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
+    
     if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer,ordered=False)
-        
+        customer, created = Customer.objects.get_or_create(
+            email =  data['form']['email'],
+        )
+        customer.name = request.user.username
+        customer.save()
+        # customer = request.user.customer
+        order, created = Order.objects.get_or_create(ordered=False)
+        #missing customer=customer inside order
     else:
         print('User is not logged in')
         print('COOKIES:',request.COOKIES)
@@ -168,7 +186,6 @@ def processOrdder(request):
         customer.save()
 
         order = Order.objects.create(
-            customer = customer,
             ordered= False,
         )
         for item in items:
