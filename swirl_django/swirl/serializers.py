@@ -47,11 +47,13 @@ class ItemSerializer(serializers.ModelSerializer):
 
 class OrderItemSerializerDRF(serializers.ModelSerializer):
     item = ItemSerializer()
+ 
     class Meta:
        model = OrderItem
-       fields=('id','item','quantity',)
+       fields=('id','item','quantity','get_total')
+    
 
 class OrderSerializerDRF(serializers.ModelSerializer):
     class Meta:
        model = Order
-       fields=('id','customer','start_date','ordered_date','ordered','transaction_id',)
+       fields=('id','customer','start_date','ordered_date','ordered','transaction_id','get_cart_total','get_cart_items',)
