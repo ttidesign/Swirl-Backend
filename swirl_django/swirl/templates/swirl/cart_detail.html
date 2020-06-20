@@ -2,13 +2,15 @@
 {% block content %}
 <h3>Items in Cart</h3>
     {% for item in items %}
+    <section class='section-title'>{{item.item.title}} </section>
         <div  class='cart-items'> 
             <section> <img class='thumbnail-checkout' src={{item.item.preview_url}}> </section>
-            <section> {{item.item.title}} </section>
-            <section> ${{item.item.price|floatformat:2}} </section>
-            <section> Quantity: <a data-product={{item.item.id}} data-action="remove" class='update_cart'> <img class='sign' src='https://tkdesignportfolio.s3-us-west-1.amazonaws.com/swirl/minus-icon.svg'>  </a>{{item.quantity}} <a data-product={{item.item.id}} data-action="add" class='update_cart'> <img class='sign' src='https://tkdesignportfolio.s3-us-west-1.amazonaws.com/swirl/plus-icon.svg'> </a> </section>
-            <section>Cost: ${{item.get_total|floatformat:2}} </section>
+            <section class='section-title-inline'> {{item.item.title}} </section>
+            <section class='section-price'> ${{item.item.price|floatformat:2}} </section>
+            <section class='section-quantity'> Quantity: <a data-product={{item.item.id}} data-action="remove" class='update_cart'> <img class='sign' src='https://tkdesignportfolio.s3-us-west-1.amazonaws.com/swirl/minus-icon.svg'>  </a>{{item.quantity}} <a data-product={{item.item.id}} data-action="add" class='update_cart'> <img class='sign' src='https://tkdesignportfolio.s3-us-west-1.amazonaws.com/swirl/plus-icon.svg'> </a> </section>
+            <section class='section-cost'>Cost: ${{item.get_total|floatformat:2}} </section>
         </div>
+        
 
     {% endfor %}
 <div class='styled-div-container-2'> 

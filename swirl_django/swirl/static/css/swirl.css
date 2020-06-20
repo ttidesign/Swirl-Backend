@@ -81,7 +81,7 @@ a:hover {
 	margin: 0px auto;
 	width: 900px;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(150px, 5fr));
 	grid-gap: 1rem;
 }
 .drink-title {
@@ -154,7 +154,7 @@ img.detail-image {
 	border: 1px solid rgba(216, 188, 149, 1);
 	margin-left: 20px;
 }
-.receipt-title {
+.receipt-title-inline {
 	width: 150px;
 	margin-left: 20px;
 }
@@ -163,8 +163,14 @@ img.detail-image {
 .receipt-img {
 	width: 50px;
 }
+.receipt-title{
+	display: none;
+}
 section {
 	width: 300px;
+}
+.section-title{
+	display: none;
 }
 .cart-items {
 	padding-bottom: 20px;
@@ -278,3 +284,108 @@ margin-right: 30px;
 }
 
 /* Responsive */
+@media (max-width: 768px){
+	.d-block.w-100 {
+	max-width: 650px;
+}
+	.main-gallery {
+	width: 600px;
+}
+	.detail-view{
+		margin-top: 10px;
+		width: 750px;
+	}
+	img.detail-image {
+	margin-left: 5px;
+	width: 300px;
+}
+	.form-container{
+	display: block;
+}
+	.form-container,.checkout-form,.order-summary{
+	width: 500px;
+}
+}
+
+@media (max-width: 414px){
+	.d-block.w-100 {
+	max-width: 350px;
+}
+	.main-gallery {
+	width: 370px;
+}
+.detail-view {
+	display: block;
+	width: 350px;
+}
+.google-map-container{
+	width: 350px;
+	margin: 0 auto;
+	height :auto
+}
+.store-info{
+	margin: 0 auto;
+}
+.store-list{
+	padding-left: 0;
+	padding-top: 10px;
+}
+.detail-info {
+	padding-top: 0px;
+	margin-left: 20px;
+}
+
+img.detail-image {
+	width: 340px;
+	height: auto;
+	margin-bottom: 10px;
+}
+.thumbnail-checkout{
+	width: 75px;
+}
+h3{
+	padding-top: 10px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid rgba(216, 188, 149, 0.3);
+}
+.cart-items {
+	margin:10px auto
+}
+section{
+	font-size: 14px;
+	width: 130px;
+}
+
+.section-price,.section-title-inline{
+	display: none;
+}
+.section-cost{
+	width: 100px;
+}
+.section-title{
+	display: block;
+	width: 300px;
+	margin-left: 20px;
+	margin-top: 10px;
+	padding-bottom: 5px;
+}
+.styled-div-container-2{margin-left: 10px;}
+.styled-button2{
+	width: 340px;
+}
+.form-container{
+	display: block;
+}
+.form-container,.checkout-form,.order-summary{
+	width: 360px;
+}
+input{
+	width: 250px
+}
+.receipt-title-inline{
+display: none;
+}
+.receipt-title{ 
+	display: block;
+	width: 300px}
+}
