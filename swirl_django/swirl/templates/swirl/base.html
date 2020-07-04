@@ -49,6 +49,14 @@
         console.log('cart was create')
         document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
     }
+    let favorite = JSON.parse(getCookie('favorite'))
+        if (favorite == undefined) {
+            favorite = {
+
+            }
+            console.log('favorite list was create')
+            document.cookie = 'favorite=' + JSON.stringify(favorite) + ";domain=;path=/"
+        }
     </script>
 </head>
 

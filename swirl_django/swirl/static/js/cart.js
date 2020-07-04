@@ -1,4 +1,5 @@
 let updateBtns = document.getElementsByClassName('update_cart');
+let addFavoriteButton = document.getElementsByClassName('add_favorite');
 
 for (let i = 0; i < updateBtns.length; i++) {
 	updateBtns[i].addEventListener('click', function () {
@@ -11,6 +12,15 @@ for (let i = 0; i < updateBtns.length; i++) {
 		} else {
 			updateUserOrder(productId, action);
 		}
+	});
+}
+for (let i = 0; i < addFavoriteButton.length; i++) {
+	addFavoriteButton[i].addEventListener('click', function () {
+		let productId = this.dataset.product;
+		let action = this.dataset.action;
+		console.log('productId', productId, 'action', action);
+		console.log('User', user);
+		addFavoriteItem(productId, action);	
 	});
 }
 function addCookieItem(productId, action) {
@@ -32,6 +42,21 @@ function addCookieItem(productId, action) {
 	document.cookie = 'cart=' + JSON.stringify(cart) + ';domain=;path=/';
 	location.reload()
 }
+function addFavoriteItem(productId,action) {
+	if(action =='add') {
+		if(favorite[productId]== undefined) {
+			favorite[productId] = {'quantity':1}
+		}else if ( favorite[productId]==1) {
+			return
+		}
+	}
+	if ('action' == 'remove') {
+		delete favorite[productId]
+	}
+	document.cookie = 'favorite=' + JSON.stringify(favorite) + ';domain=;path=/';
+	location.reload();
+}
+
 function updateUserOrder(productId, action) {
 	console.log('user is logged in,sending data');
 	let url = '/update_item/';
