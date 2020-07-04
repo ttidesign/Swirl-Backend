@@ -1,0 +1,31 @@
+{% extends 'swirl/base.html' %}
+{% block content %}
+<h3>Favorites</h3>
+{% for item in items %}
+<section class='section-title'>{{item.item.title}} </section>
+<div class='cart-items'>
+    <section> <img class='thumbnail-checkout' src={{item.item.preview_url}}> </section>
+    <section class='section-title-inline'> {{item.item.title}} </section>
+    <section class='section-price'> Price: ${{item.item.price|floatformat:2}} </section>
+     <section class='section-quantity'>
+        <a data-product={{item.item.id}} data-action="add" class='update_cart'> <div class='styled-button'> Add to Cart </div></a> 
+        <a data-product={{item.item.id}} data-action="remove" class='update_favorite'> <div class='styled-button'> Remove Item </div> </a>
+    </section>
+</div>
+
+
+{% endfor %}
+<div class='styled-div-container-2'>
+    <p>Total Item: {{order.get_cart_items}} </p>
+    <p>Grand total: ${{order.get_cart_total|floatformat:2}}</p>
+</div>
+<div class='styled-div-container-2'>
+    <div class='styled-div-container'>
+        <div class='styled-button2'> <a href='/products/'> Continue Shopping </a>
+        </div>
+    </div>
+    <div class='styled-button2'> <a href='/checkout/'> Checkout </a>
+    </div>
+</div>
+</div>
+{% endblock %}

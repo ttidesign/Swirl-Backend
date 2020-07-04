@@ -1,5 +1,5 @@
 let updateBtns = document.getElementsByClassName('update_cart');
-let addFavoriteButton = document.getElementsByClassName('add_favorite');
+let addFavoriteButton = document.getElementsByClassName('update_favorite');
 
 for (let i = 0; i < updateBtns.length; i++) {
 	updateBtns[i].addEventListener('click', function () {
@@ -50,8 +50,12 @@ function addFavoriteItem(productId,action) {
 			return
 		}
 	}
-	if ('action' == 'remove') {
-		delete favorite[productId]
+	if (action == 'remove') {
+		favorite[productId]['quantity'] -= 1;
+		if (favorite[productId]['quantity'] <= 0) {
+			console.log('removed item');
+			delete favorite[productId];
+		}
 	}
 	document.cookie = 'favorite=' + JSON.stringify(favorite) + ';domain=;path=/';
 	location.reload();

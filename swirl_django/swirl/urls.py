@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import  store, item_detail, checkout ,cart_detail,updateItem, processOrdder, home, store_map
+from .views import  store, item_detail, checkout ,cart_detail,updateItem, processOrdder, home, store_map, favorite_list
 # from .views import  updateItem
 from rest_framework.routers import DefaultRouter
 urlpatterns = [
@@ -17,6 +17,7 @@ urlpatterns = [
     path('products/<int:pk>', views.item_detail, name='item_detail'),
     path('locations/', views.store_map, name='store_map'),
     path('cart/', views.cart_detail, name='cart_detail'),
+    path('favorite/', views.favorite_list, name='favorite_list'),
     path('checkout/', views.checkout, name='checkout'),
     path('update_item/', views.updateItem, name='update_item'),
     path('process_order/', views.processOrdder, name='process_order'),

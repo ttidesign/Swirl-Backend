@@ -11,7 +11,7 @@ from .permissions import IsOwnerOrReject , IsOwnerOrReadOnly
 from rest_framework import permissions
 import json
 import datetime
-from .utils import cookieCart
+from .utils import cookieCart, favoriteList
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 # Create your views here.
 
@@ -133,6 +133,14 @@ def cart_detail(request):
 
     context={'items':items, 'order':order, 'cartItems':cartItems}
     return render(request, 'swirl/cart_detail.html',context)
+
+def favorite_list(request):
+    cookieData = favoriteList(request)
+    cartItems = cookieData['cartItems']
+    order = cookieData['order']
+    items = cookieData['items']
+    context={'items':items, 'order':order, 'cartItems':cartItems}
+    return render(request, 'swirl/favorite_list.html',context)
 
 def updateItem(request):
     data = json.loads(request.body)
