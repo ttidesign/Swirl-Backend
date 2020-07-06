@@ -1,8 +1,5 @@
 {% extends 'swirl/base.html' %} {% block content %}
 <h3>Favorites</h3>
-{% if favorites.length == 0 %}
-<section><p>There are no items in your favorite list</p></section>
-{% else % }
 {% for item in favorites %}
 <section class="section-title">{{item.item.title}}</section>
 <div class="cart-items">
@@ -27,8 +24,6 @@
 	</section>
 </div>
 {% endfor %}
-{% endif %}
-
 <div class="styled-div-container-2">
 	<div class="styled-div-container">
 		<div class="styled-button2">

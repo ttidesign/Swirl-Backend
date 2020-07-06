@@ -2,12 +2,14 @@
 {% load static %}
 <html>
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>{% block head_title %}{% endblock %}</title>
 		<link rel="stylesheet" href="{% static 'css/swirl.css' %}" />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Gotu&family=Lato:wght@300&display=swap"
 			rel="stylesheet"
 		/>
+		<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
 		{% block extra_head %} {% endblock %}
 	</head>
 
@@ -19,8 +21,9 @@
 			/></a>
             <p>Welcome to Swirl Coffee</p>
         
-        {% if user.is_authenticated %}
-                <div class="styled-button2">
+		{% if user.is_authenticated %}
+		
+            <div class="styled-button2">
 				<a href="{% url 'account_email' %}">Change E-mail</a>
 			</div>
 			<div class="styled-button2">
@@ -42,6 +45,7 @@
 			<div class="styled-button2">
 				<a href="{% url 'store' %}">Proceed To Site</a>
 			</div>
+			
 			{% endif %}
         </div>
 	</body>
