@@ -2,7 +2,7 @@
 [Swirl](https://swirl-project.herokuapp.com/) is an e-commerce website focusing on customer facing and B2C sales of espresso special drinks
 
 ## SWIRL
-<img  width='100%' src='./images/homescreen.jpeg' alt='project home screen'>
+<img  width='100%' src='swirl_django/images/homescreen.jpeg' alt='project home screen'>
 
 ## User Stories
 This website is for coffee and espresso lovers who love to have their drinks made by a skillful barista. However, it's hard for people to go outside, make a trip to their nearby stores and grab their drinks because of the Covid19 lockdown. Therefore, Swirl focused on letting people order their drink and have it deliver to their home. User friendly interfaces with minimal page transitions, users can order drinks and have them deliver to their home as fast as few clicks. Users don't need to Sign-up for an account to order drinks, they can simply add their drinks of choice and proceed to payment. Using PayPal or cards (majors credit cards accepted), users can order their drinks and not worry about having to go to stores.
@@ -14,16 +14,16 @@ This website is for coffee and espresso lovers who love to have their drinks mad
 I started this project with a rough idea in mind then quickly created the wireframe for the first couple pages of the website using Indesign and Photoshop. 
 
 ### Homepage
-<img  width='100%' src='./images/project4-planning.jpg' alt='project home screen'>
+<img  width='100%' src='swirl_django/images/project4-planning.jpg' alt='project home screen'>
 
 ### Detail page
-<img  width='100%' src='./images/project4-planning2.jpg' alt='project home screen'>
+<img  width='100%' src='swirl_django/images/project4-planning2.jpg' alt='project home screen'>
 
 Then I planned out how to build my backend models with simple structure of what the model would look like and what information it should contain
 
 ### Back-End Model Structure
 
-<img  width='100%' src='./images/project4-planning4.jpg' alt='project home screen'>
+<img  width='100%' src='swirl_django/images/project4-planning4.jpg' alt='project home screen'>
 
 After having a solid idea about the backend model and their relationships, I built out the backend with Django and simply rendered each routes with Django template to make sure each routes/endpoint displayed correctly. I built full C.R.U.D functionality and and tested each endpoint with Postman.
 
@@ -108,18 +108,18 @@ let total = '{{order.get_cart_total}}'
 ## Quick Review Of The Website
 
 ### Homepage
-<img  width='100%' src='./images/home.jpeg' alt='project home screen'>
+<img  width='100%' src='swirl_django/images/home.jpeg' alt='project home screen'>
 
 ### Detail Page
 
-<img  width='100%' src='./images/detail.jpeg' alt='project home screen'>
+<img  width='100%' src='swirl_django/images/detail.jpeg' alt='project home screen'>
 
 ### Cart
 
-<img  width='100%' src='./images/cart.jpeg' alt='project home screen'>
+<img  width='100%' src='swirl_django/images/cart.jpeg' alt='project home screen'>
 
 ### Checkout
 
-<img  width='100%' src='./images/checkout.jpeg' alt='project home screen'>
+<img  width='100%' src='swirl_django/images/checkout.jpeg' alt='project home screen'>
 
 Thank you for reading!
