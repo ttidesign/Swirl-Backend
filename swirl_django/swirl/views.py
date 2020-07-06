@@ -17,40 +17,40 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 
 
 
-class CustomerList(generics.ListCreateAPIView):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
+# class CustomerList(generics.ListCreateAPIView):
+#     queryset = Customer.objects.all()
+#     serializer_class = CustomerSerializer
 
-class UserList(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [IsOwnerOrReject,IsOwnerOrReadOnly]
+# class UserList(generics.ListCreateAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+#     permission_classes = [IsOwnerOrReject,IsOwnerOrReadOnly]
 
-class CustomerDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
+# class CustomerDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Customer.objects.all()
+#     serializer_class = CustomerSerializer
 
-class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReject,IsOwnerOrReadOnly]
+# class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+#     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReject,IsOwnerOrReadOnly]
 
-class ItemList(generics.ListCreateAPIView):
-    queryset = Item.objects.all()
-    serializer_class = ItemSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
+# class ItemList(generics.ListCreateAPIView):
+#     queryset = Item.objects.all()
+#     serializer_class = ItemSerializer
+#     permission_classes = [permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
 
-class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Item.objects.all()
-    serializer_class = ItemSerializer
+# class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Item.objects.all()
+#     serializer_class = ItemSerializer
 
-class OrderItemDRF(generics.ListCreateAPIView):
-    queryset = OrderItem.objects.all()
-    serializer_class = OrderItemSerializerDRF
+# class OrderItemDRF(generics.ListCreateAPIView):
+#     queryset = OrderItem.objects.all()
+#     serializer_class = OrderItemSerializerDRF
 
-class OrderDRF(generics.ListCreateAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializerDRF
+# class OrderDRF(generics.ListCreateAPIView):
+#     queryset = Order.objects.all()
+#     serializer_class = OrderSerializerDRF
         
 def home(request):
     return render(request, 'swirl/home.html')
