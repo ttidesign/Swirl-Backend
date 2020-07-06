@@ -135,11 +135,14 @@ def cart_detail(request):
     return render(request, 'swirl/cart_detail.html',context)
 
 def favorite_list(request):
-    cookieData = favoriteList(request)
-    cartItems = cookieData['cartItems']
+    cookieData = cookieCart(request)
+    cookieFavoriteData = favoriteList(request)
+    cartItems= cookieData['cartItems']
+    favoriteItems = cookieFavoriteData['favoriteItems']
     order = cookieData['order']
     items = cookieData['items']
-    context={'items':items, 'order':order, 'cartItems':cartItems}
+    favorites = cookieFavoriteData['favorites']
+    context={'items':items,'favorites':favorites, 'order':order, 'favoriteItems':favoriteItems,'cartItems':cartItems}
     return render(request, 'swirl/favorite_list.html',context)
 
 def updateItem(request):

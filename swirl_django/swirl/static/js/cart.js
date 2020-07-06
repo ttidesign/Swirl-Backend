@@ -1,6 +1,7 @@
 let updateBtns = document.getElementsByClassName('update_cart');
 let addFavoriteButton = document.getElementsByClassName('update_favorite');
 
+
 for (let i = 0; i < updateBtns.length; i++) {
 	updateBtns[i].addEventListener('click', function () {
 		let productId = this.dataset.product;
@@ -23,6 +24,11 @@ for (let i = 0; i < addFavoriteButton.length; i++) {
 		addFavoriteItem(productId, action);	
 	});
 }
+
+	
+
+	
+
 function addCookieItem(productId, action) {
 	if (action == 'add') {
 		if (cart[productId] == undefined) {
@@ -83,3 +89,4 @@ function updateUserOrder(productId, action) {
 			location.reload();
 		});
 }
+

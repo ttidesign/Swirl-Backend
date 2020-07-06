@@ -12,6 +12,8 @@
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/css/mdb.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/swirl.css' %}" />
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
+    </head>
     <title>Swirl</title>
  
     <script type="text/javascript"> let user = '{{request.user}}'
@@ -30,7 +32,7 @@
         return cookieValue
     }
     let csrftoken = getToken('csrftoken')
-    console.log(csrftoken)
+    // console.log(csrftoken)
     function getCookie(name){
         let cookieArr = document.cookie.split(';');
         for(let i =0; i<cookieArr.length; i++ ) {
@@ -80,6 +82,7 @@
                         <a class="nav-link" href="/">Account</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/favorite/">Favorite</a>
                     </li>
                 </ul>
                 <a href='/cart/'> <img class= 'cart-icon' src='https://tkdesignportfolio.s3-us-west-1.amazonaws.com/swirl/cart.svg'> </a><p>{{cartItems}}</p>
