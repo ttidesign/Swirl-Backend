@@ -1,4 +1,6 @@
 let updateBtns = document.getElementsByClassName('update_cart');
+let addFavoriteButton = document.getElementsByClassName('update_favorite');
+
 
 for (let i = 0; i < updateBtns.length; i++) {
 	updateBtns[i].addEventListener('click', function () {
@@ -13,6 +15,20 @@ for (let i = 0; i < updateBtns.length; i++) {
 		}
 	});
 }
+for (let i = 0; i < addFavoriteButton.length; i++) {
+	addFavoriteButton[i].addEventListener('click', function () {
+		let productId = this.dataset.product;
+		let action = this.dataset.action;
+		console.log('productId', productId, 'action', action);
+		console.log('User', user);
+		addFavoriteItem(productId, action);	
+	});
+}
+
+	
+
+	
+
 function addCookieItem(productId, action) {
 	if (action == 'add') {
 		if (cart[productId] == undefined) {
@@ -32,6 +48,25 @@ function addCookieItem(productId, action) {
 	document.cookie = 'cart=' + JSON.stringify(cart) + ';domain=;path=/';
 	location.reload()
 }
+function addFavoriteItem(productId,action) {
+	if(action =='add') {
+		if(favorite[productId]== undefined) {
+			favorite[productId] = {'quantity':1}
+		}else if ( favorite[productId]==1) {
+			return
+		}
+	}
+	if (action == 'remove') {
+		favorite[productId]['quantity'] -= 1;
+		if (favorite[productId]['quantity'] <= 0) {
+			console.log('removed item');
+			delete favorite[productId];
+		}
+	}
+	document.cookie = 'favorite=' + JSON.stringify(favorite) + ';domain=;path=/';
+	location.reload();
+}
+
 function updateUserOrder(productId, action) {
 	console.log('user is logged in,sending data');
 	let url = '/update_item/';
@@ -54,3 +89,4 @@ function updateUserOrder(productId, action) {
 			location.reload();
 		});
 }
+
