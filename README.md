@@ -36,7 +36,7 @@ Django - View templates, Django allauth for Sign-up and Sign-in, REST API framew
 Bootstrap/MDBootstrap - Fade-in animation <br>
 Adobe CC - Planning, Wireframe, Images, Logo, Icons <br>
 PayPal - Payment handle with PayPal API <br>
-Google Map API - Stores and near by location <br>
+Google Map API - Stores and nearby location <br>
 
 ## Challenges and Overcome Obstacles
 There were few problems along the way when building this project, first because I tried to build the website so users can add their drinks, view their current cart items and checkout without having to Sign-up for an account, I planned on using cookies for storing those data, created a ```cart``` cookie, persist it and retrieve it to render its property were challenge. It took me few tries and youtube tutorial to get it right. <br>
